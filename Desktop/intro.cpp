@@ -2,30 +2,19 @@
 
 intro::Intro::Intro()
 {
-
     setContentAlignment(Wt::AlignmentFlag::Center);
-
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
-
     mHeader = mLayout->addWidget(cpp14::make_unique<Header>());
-
-//    mLayout->addSpacing(175);
-
     mBody = mLayout->addWidget(cpp14::make_unique<Body>(),0,Wt::AlignmentFlag::Middle);
-
-//    mLayout->addStretch(1);
-
     mFooter = mLayout->addWidget(cpp14::make_unique<Footer>(),0,Wt::AlignmentFlag::Bottom);
-
     setStyleClass("introBody");
 }
 
 intro::Header::Header()
 {
 
-    setStyleClass("header");
+    setStyleClass("introheader");
 
-//    decorationStyle().setBackgroundColor(WColor("#407077"));
     setContentAlignment(Wt::AlignmentFlag::Center);
 
     mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
@@ -37,7 +26,7 @@ intro::Header::Header()
     auto mDevLayout = mLayout->addLayout(cpp14::make_unique<WVBoxLayout>());
     mDevLayout->addStretch(1);
     auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Left);
-    mTitle->setStyleClass("Development_of_Innovation");
+    mTitle->setStyleClass("introDevelopment_of_Innovation");
     mDevLayout->addStretch(1);
 
     auto mflagLayout = mDevLayout->addLayout(cpp14::make_unique<WHBoxLayout>());
@@ -69,38 +58,29 @@ intro::Header::Header()
 intro::Body::Body()
 {
 
-    setContentAlignment(Wt::AlignmentFlag::Center);
-
-
+    setContentAlignment(Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Middle);
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
-
-    /// Logo ve MOGAT Text
     {
-        auto mlogolayout = mLayout->addLayout(cpp14::make_unique<WHBoxLayout>());
-
+        auto mlogolayout = mLayout->addLayout(cpp14::make_unique<WHBoxLayout>(),0,Wt::AlignmentFlag::Middle);
         mlogolayout->addWidget(cpp14::make_unique<WImage>(WLink("img/Logo.png")),0,Wt::AlignmentFlag::Right);
-
         auto mlogoTextLayout = mlogolayout->addLayout(cpp14::make_unique<WVBoxLayout>());
-
         mlogoTextLayout->addStretch(1);
         auto text = mlogoTextLayout->addWidget(cpp14::make_unique<WText>("MOGAT"),0,Wt::AlignmentFlag::Left);
-        text->setStyleClass("Mogat");
+        text->setStyleClass("introMogat");
         mlogoTextLayout->addStretch(1);
     }
 
-
     {
         mLayout->addStretch(1);
-        auto text = mLayout->addWidget(cpp14::make_unique<WText>("MOBILE TOOLS AND FAMIFICATION\nAS A NEW LANGUAGE ASSESSMENT SYSTEM IN TOURISM"),0,Wt::AlignmentFlag::Center);
-        text->setStyleClass("mobileText");
+        auto text = mLayout->addWidget(cpp14::make_unique<WText>("MOBILE TOOLS AND GAMIFICATION\nAS A NEW LANGUAGE ASSESSMENT SYSTEM IN TOURISM"),0,Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Middle);
+        text->setStyleClass("intromobileText");
     }
 
     {
-        mLayout->addStretch(1);
-        auto text = mLayout->addWidget(cpp14::make_unique<WText>("ENTER"));
-        text->setStyleClass("enter");
+        mLayout->addSpacing(10);
+        auto text = mLayout->addWidget(cpp14::make_unique<WText>("ENTER"),0,Wt::AlignmentFlag::Center);
+        text->setStyleClass("introenter");
     }
-//    mLayout->addSpacing(10);
 }
 
 
@@ -108,19 +88,11 @@ intro::Body::Body()
 intro::Footer::Footer()
 {
     setStyleClass("introfooter");
-
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
-
     auto mogatTitleText = mLayout->addWidget(cpp14::make_unique<WText>("Mogat"),0,Wt::AlignmentFlag::Center);
     mogatTitleText->setStyleClass("introMogatSubTitle");
-
     auto text = mLayout->addWidget(cpp14::make_unique<WText>(legalNoitice),0,Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Bottom);
-
-    text->setStyleClass("legalNotice");
-
+    text->setStyleClass("introlegalNotice");
     auto text2 = mLayout->addWidget(cpp14::make_unique<WText>("© 2017 MOGAT • powered by Wt & Qt & github"),0,Wt::AlignmentFlag::Center);
-
     text2->setStyleClass("introcopyRight");
-
-
 }
