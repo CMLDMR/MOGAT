@@ -9,11 +9,11 @@ intro::Intro::Intro()
 
     mHeader = mLayout->addWidget(cpp14::make_unique<Header>());
 
-    mLayout->addSpacing(175);
+//    mLayout->addSpacing(175);
 
-    mBody = mLayout->addWidget(cpp14::make_unique<Body>());
+    mBody = mLayout->addWidget(cpp14::make_unique<Body>(),0,Wt::AlignmentFlag::Middle);
 
-    mLayout->addStretch(1);
+//    mLayout->addStretch(1);
 
     mFooter = mLayout->addWidget(cpp14::make_unique<Footer>(),0,Wt::AlignmentFlag::Bottom);
 
@@ -71,7 +71,6 @@ intro::Body::Body()
 
     setContentAlignment(Wt::AlignmentFlag::Center);
 
-//    setStyleClass("introBody");
 
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
 
@@ -91,17 +90,17 @@ intro::Body::Body()
 
 
     {
-        mLayout->addSpacing(75);
+        mLayout->addStretch(1);
         auto text = mLayout->addWidget(cpp14::make_unique<WText>("MOBILE TOOLS AND FAMIFICATION\nAS A NEW LANGUAGE ASSESSMENT SYSTEM IN TOURISM"),0,Wt::AlignmentFlag::Center);
         text->setStyleClass("mobileText");
     }
 
     {
-        mLayout->addSpacing(75);
+        mLayout->addStretch(1);
         auto text = mLayout->addWidget(cpp14::make_unique<WText>("ENTER"));
         text->setStyleClass("enter");
     }
-    mLayout->addStretch(1);
+//    mLayout->addSpacing(10);
 }
 
 
