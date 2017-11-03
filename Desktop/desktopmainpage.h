@@ -13,6 +13,7 @@
 #include <Wt/WText.h>
 #include <Wt/WCssDecorationStyle.h>
 #include <Wt/WNavigationBar.h>
+#include <Wt/WStackedWidget.h>
 
 using namespace Wt;
 
