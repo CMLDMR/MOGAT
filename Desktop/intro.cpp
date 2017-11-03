@@ -79,8 +79,21 @@ intro::Body::Body()
     {
         mLayout->addSpacing(10);
         auto text = mLayout->addWidget(cpp14::make_unique<WText>("ENTER"),0,Wt::AlignmentFlag::Center);
+        text->clicked().connect(this,&intro::Body::eEnterClick);
         text->setStyleClass("introenter");
     }
+}
+
+Signal<int> &intro::Body::EnterClicked()
+{
+    return _EnterClicked;
+}
+
+void intro::Body::eEnterClick()
+{
+
+    _EnterClicked.emit(1);
+
 }
 
 

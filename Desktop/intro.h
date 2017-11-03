@@ -35,6 +35,9 @@ namespace intro {
         Body* mBody;
         Footer* mFooter;
 
+    private:
+
+
     };
 
 
@@ -62,6 +65,13 @@ namespace intro {
     {
     public:
         Body();
+
+        Signal<int> &EnterClicked();
+
+    private:
+        Signal<int> _EnterClicked;
+
+        void eEnterClick();
     };
 
     ///
