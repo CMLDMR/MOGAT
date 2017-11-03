@@ -17,7 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     mainapplication.cpp \
     Desktop/intro.cpp \
-    singleton.cpp
+    singleton.cpp \
+    Desktop/desktopmainpage.cpp
 
 
 
@@ -39,7 +40,8 @@ DEPENDPATH += $$PWD/../../Server/WebServer/Wt-4.0.0-msvs2015-Windows-x64-SDK/inc
 HEADERS += \
     mainapplication.h \
     Desktop/intro.h \
-    singleton.h
+    singleton.h \
+    Desktop/desktopmainpage.h
 
 
 
