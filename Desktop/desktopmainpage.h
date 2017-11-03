@@ -3,10 +3,27 @@
 
 #include <QtCore/qglobal.h>
 
-class DesktopMainPage : public WContainerPage
-{
-public:
-    DesktopMainPage();
-};
+
+#include <Wt/WContainerWidget.h>
+
+#include <Wt/WHBoxLayout.h>
+#include <Wt/WVBoxLayout.h>
+#include <Wt/WSignal.h>
+#include <Wt/WImage.h>
+#include <Wt/WText.h>
+#include <Wt/WCssDecorationStyle.h>
+
+using namespace Wt;
+
+namespace MainPage {
+
+
+    class DesktopMainPage : public WContainerWidget
+    {
+    public:
+        DesktopMainPage();
+    };
+}
+
 
 #endif // DESKTOPMAINPAGE_H
