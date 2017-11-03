@@ -6,12 +6,14 @@ MainPage::DesktopMainPage::DesktopMainPage()
 {
     addWidget(cpp14::make_unique<Header>());
 
+    addWidget(cpp14::make_unique<Body>());
+
     addWidget(cpp14::make_unique<Footer>());
 }
 
 MainPage::Header::Header()
 {
-    setStyleClass("introheader");
+    setStyleClass("mainheader");
 
     setContentAlignment(Wt::AlignmentFlag::Center);
 
@@ -55,7 +57,7 @@ MainPage::Header::Header()
 
 MainPage::Footer::Footer()
 {
-    setStyleClass("introfooter");
+    setStyleClass("mainfooter");
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
     auto mogatTitleText = mLayout->addWidget(cpp14::make_unique<WText>("Mogat"),0,Wt::AlignmentFlag::Center);
     mogatTitleText->setStyleClass("introMogatSubTitle");
@@ -63,4 +65,28 @@ MainPage::Footer::Footer()
     text->setStyleClass("introlegalNotice");
     auto text2 = mLayout->addWidget(cpp14::make_unique<WText>("© 2017 MOGAT • powered by Wt & Qt & github"),0,Wt::AlignmentFlag::Center);
     text2->setStyleClass("introcopyRight");
+}
+
+MainPage::Body::Body()
+{
+
+    decorationStyle().setBackgroundImage(WLink("/img/Background.jpg"));
+
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+
 }

@@ -12,6 +12,7 @@
 #include <Wt/WImage.h>
 #include <Wt/WText.h>
 #include <Wt/WCssDecorationStyle.h>
+#include <Wt/WNavigationBar.h>
 
 using namespace Wt;
 
@@ -45,6 +46,20 @@ namespace MainPage {
 
         WHBoxLayout* mLayout;
     };
+
+
+
+
+    class Body : public WContainerWidget
+    {
+    public:
+        Body();
+    };
+
+
+
+
+
 
 
 
