@@ -3,6 +3,13 @@
 MainApplication::MainApplication(const Wt::WEnvironment &env)
     :WApplication(env),whChanged(this,"whChanged")
 {
+
+    p_wtTheme = std::make_shared<Wt::WBootstrapTheme>();
+    p_wtTheme->setVersion(Wt::WBootstrapTheme::Version::v3);
+    Wt::WApplication::instance()->setTheme(p_wtTheme);
+    Wt::WApplication::instance()->setTitle("Mogat Official Page");
+
+
     WApplication::useStyleSheet(WLink("css/intro.css"));
     WApplication::useStyleSheet(WLink("css/mainPage.css"));
 

@@ -8,6 +8,9 @@
 #include <Wt/WEnvironment.h>
 #include <Wt/WJavaScript.h>
 
+#include <Wt/WBootstrapTheme>
+
+
 
 
 #include "singleton.h"
@@ -57,6 +60,10 @@ public:
 private:
 
 
+    ///
+    /// \brief p_wtTheme
+    /// Bootstrap Theme
+    std::shared_ptr<Wt::WBootstrapTheme> p_wtTheme;
 
 
     int viewPortWidth, viewPortHeight;
