@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "Desktop/intro.h"
+#include "Desktop/desktopmainpage.h"
 
 using namespace Wt;
 
@@ -22,17 +23,26 @@ public:
 
 private:
 
+    ///
+    /// \brief mIntroPage
+    /// First Page at start up
     intro::Intro* mIntroPage;
 
-    std::unique_ptr<WVBoxLayout> mMainLayout;
+    ///
+    /// \brief mDesktopMainPage
+    /// Main Page
+    MainPage::DesktopMainPage* mDesktopMainPage;
 
-    std::unique_ptr<WContainerWidget> container;
+    void initMainPage();
 
     ///
     /// \brief Width
     /// Viewport Width and Height
     int Width;
     int Height;
+
+
+
 
 };
 
