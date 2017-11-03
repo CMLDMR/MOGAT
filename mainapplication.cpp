@@ -4,6 +4,7 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
     :WApplication(env),whChanged(this,"whChanged")
 {
     WApplication::useStyleSheet(WLink("css/intro.css"));
+    WApplication::useStyleSheet(WLink("css/mainPage.css"));
 
     Wt::WApplication::instance()->setBodyClass("RootGovde");
 

@@ -30,7 +30,7 @@ private:
 
     ///
     /// \brief mDesktopMainPage
-    /// Main Page
+    /// Clear Content and init Main page Elements
     MainPage::DesktopMainPage* mDesktopMainPage;
 
     void initMainPage();

@@ -18,8 +18,5 @@ Singleton::Singleton(int _width, int _height)
 void Singleton::initMainPage()
 {
     clear();
-    std::cout << "init Second Page";
-
     mDesktopMainPage = addWidget(cpp14::make_unique<MainPage::DesktopMainPage>());
-
 }
