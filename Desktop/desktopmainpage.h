@@ -54,6 +54,8 @@ namespace MainPage {
     {
     public:
         Body();
+
+        WNavigationBar* mNavigationBar;
     };
 
 

@@ -72,21 +72,12 @@ MainPage::Body::Body()
 
     decorationStyle().setBackgroundImage(WLink("/img/Background.jpg"));
 
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
-    addWidget(cpp14::make_unique<WText>("Main Page Body"));
+
+    mNavigationBar = addWidget(cpp14::make_unique<WNavigationBar>());
+
+    mNavigationBar->setTitle("MOGAT");
+
+    mNavigationBar->setResponsive(true);
+
 
 }
