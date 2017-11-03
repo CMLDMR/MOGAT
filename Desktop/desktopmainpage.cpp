@@ -4,6 +4,9 @@
 
 MainPage::DesktopMainPage::DesktopMainPage()
 {
+
+    setContentAlignment(Wt::AlignmentFlag::Center);
+
     addWidget(cpp14::make_unique<Header>());
 
     addWidget(cpp14::make_unique<Body>());
@@ -71,6 +74,7 @@ MainPage::Body::Body()
 {
 
     decorationStyle().setBackgroundImage(WLink("/img/Background.jpg"));
+    setMaximumSize(WLength(1024),WLength::Auto);
 
 
     mNavigationBar = addWidget(cpp14::make_unique<WNavigationBar>());
@@ -78,6 +82,26 @@ MainPage::Body::Body()
     mNavigationBar->setTitle("MOGAT");
 
     mNavigationBar->setResponsive(true);
+
+    mContent = addWidget(cpp14::make_unique<WStackedWidget>());
+    mContent->addStyleClass("contents");
+
+
+    auto mainMenu_ = cpp14::make_unique<WMenu>(mContent);
+    auto mainMenu = mNavigationBar->addMenu(std::move(mainMenu_),Wt::AlignmentFlag::Left);
+
+    mainMenu->addItem("Home");
+    mainMenu->addItem("Objectives");
+    mainMenu->addItem("Resource");
+    mainMenu->addItem("News");
+    mainMenu->addItem("Collabrators");
+
+
+    auto helpMenu_ = cpp14::make_unique<WMenu>(mContent);
+    auto helpMenu = mNavigationBar->addMenu(std::move(helpMenu_),Wt::AlignmentFlag::Right);
+
+    helpMenu->addItem("Contact");
+    helpMenu->addItem("About");
 
 
 }

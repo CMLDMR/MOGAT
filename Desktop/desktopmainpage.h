@@ -14,6 +14,7 @@
 #include <Wt/WCssDecorationStyle.h>
 #include <Wt/WNavigationBar.h>
 #include <Wt/WStackedWidget.h>
+#include <Wt/WMenu.h>
 
 using namespace Wt;
 
@@ -57,6 +58,8 @@ namespace MainPage {
         Body();
 
         WNavigationBar* mNavigationBar;
+
+        WStackedWidget* mContent;
     };
 
 
