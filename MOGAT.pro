@@ -54,4 +54,5 @@ INCLUDEPATH += $$PWD/../../Server/WebServer/Wt-4.0.0-msvs2015-Windows-x64-SDK/in
 DEPENDPATH += $$PWD/../../Server/WebServer/Wt-4.0.0-msvs2015-Windows-x64-SDK/include
 
 DISTFILES += \
-    ../build-MOGAT-Desktop_Qt_5_9_1_MSVC2015_64bit2-Release/css/intro.css
+    ../build-MOGAT-Desktop_Qt_5_9_1_MSVC2015_64bit2-Release/css/intro.css \
+    ../build-MOGAT-Desktop_Qt_5_9_1_MSVC2015_64bit2-Release/css/mainPage.css

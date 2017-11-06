@@ -94,6 +94,17 @@ namespace intro {
                                         "The authors are solely responsible for this publication and the Commission does not accept responsibility for the use that could be made of the information contained within it."
                                         "All the content on this website, including but not limited to, the name, the logo, the web pages content (text and images) and any downloadable file, belong to MOGAT. The use of this content is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License."};
     };
+
+
+
+
+    class FlagWidget : public WContainerWidget
+    {
+    public:
+        FlagWidget();
+    };
+
+
 }
 
 

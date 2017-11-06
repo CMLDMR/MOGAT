@@ -15,15 +15,22 @@
 #include <Wt/WNavigationBar.h>
 #include <Wt/WStackedWidget.h>
 #include <Wt/WMenu.h>
+#include <Wt/WToolBar.h>
+#include <Wt/WPushButton.h>
+
 
 using namespace Wt;
 
 namespace MainPage {
 
 
+    class FlagWidget;
     class Header;
-
     class Footer;
+    class ContentWidget;
+
+
+
 
 
     ///
@@ -33,6 +40,8 @@ namespace MainPage {
     {
     public:
         DesktopMainPage();
+
+        WVBoxLayout* mLayout;
     };
 
 
@@ -50,8 +59,9 @@ namespace MainPage {
     };
 
 
-
-
+    ///
+    /// \brief The Body class
+    ///
     class Body : public WContainerWidget
     {
     public:
@@ -60,11 +70,27 @@ namespace MainPage {
         WNavigationBar* mNavigationBar;
 
         WStackedWidget* mContent;
+
+        WToolBar* menuBar;
+
+        WVBoxLayout* mContentLayout;
+
+        ContentWidget* mContentWidget;
+
+        void f_Mogat();
+
+        void f_objective();
+
+        void f_resource();
+
+        void f_News();
+
+        void f_collabrators();
+
+        void f_About();
+
+        void f_contact();
     };
-
-
-
-
 
 
 
@@ -84,6 +110,29 @@ namespace MainPage {
                                         "The authors are solely responsible for this publication and the Commission does not accept responsibility for the use that could be made of the information contained within it."
                                         "All the content on this website, including but not limited to, the name, the logo, the web pages content (text and images) and any downloadable file, belong to MOGAT. The use of this content is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License."};
     };
+
+
+    ///
+    /// \brief The FlagWidget class
+    ///
+    class FlagWidget : public WContainerWidget
+    {
+    public:
+        FlagWidget();
+    };
+
+
+
+
+
+
+    class ContentWidget : public WContainerWidget
+    {
+    public:
+        ContentWidget();
+    };
+
+
 }
 
 
