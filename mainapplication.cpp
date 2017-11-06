@@ -4,16 +4,21 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
     :WApplication(env),whChanged(this,"whChanged")
 {
 
+
+    std::cout << "DPI: " << env.dpiScale() << std::endl;
+
     p_wtTheme = std::make_shared<Wt::WBootstrapTheme>();
     p_wtTheme->setVersion(Wt::WBootstrapTheme::Version::v3);
+    p_wtTheme.get()->setResponsive(true);
     Wt::WApplication::instance()->setTheme(p_wtTheme);
     Wt::WApplication::instance()->setTitle("Mogat Official Page");
-
 
     WApplication::useStyleSheet(WLink("css/intro.css"));
     WApplication::useStyleSheet(WLink("css/mainPage.css"));
 
     Wt::WApplication::instance()->setBodyClass("RootGovde");
+
+    root()->addStyleClass("container");
 
     this->getDimensionfBrowser();
 

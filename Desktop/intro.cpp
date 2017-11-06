@@ -1,18 +1,25 @@
 #include "intro.h"
 
-intro::Intro::Intro()
+intro::Intro::Intro(int _w, int _h)
+    :width(_w),
+      height(_h)
 {
+
     setContentAlignment(Wt::AlignmentFlag::Center);
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
     mHeader = mLayout->addWidget(cpp14::make_unique<Header>());
-    mBody = mLayout->addWidget(cpp14::make_unique<Body>(),0,Wt::AlignmentFlag::Middle);
+    mBody = mLayout->addWidget(cpp14::make_unique<Body>(width,height),0,Wt::AlignmentFlag::Middle);
     mFooter = mLayout->addWidget(cpp14::make_unique<Footer>(),0,Wt::AlignmentFlag::Bottom);
-    setStyleClass("introBody");
+    setStyleClass("introMain");
 }
+
+
+
 
 intro::Header::Header()
 {
 
+    setId("introHeader");
     setStyleClass("introheader");
 
     setContentAlignment(Wt::AlignmentFlag::Center);
@@ -32,15 +39,19 @@ intro::Header::Header()
     auto mflagLayout = mDevLayout->addLayout(cpp14::make_unique<WHBoxLayout>());
 
     int spaceWidth = 31;
-    auto english = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/en.jpg")),0,Wt::AlignmentFlag::Left);
-    english->setMaximumSize(46,28);
-    mflagLayout->addSpacing(spaceWidth);
+
     auto turkish = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/tr.jpg")),0,Wt::AlignmentFlag::Left);
     turkish->setMaximumSize(46,28);
     mflagLayout->addSpacing(spaceWidth);
+
+    auto english = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/en.jpg")),0,Wt::AlignmentFlag::Left);
+    english->setMaximumSize(46,28);
+    mflagLayout->addSpacing(spaceWidth);
+
     auto italian = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/it.jpg")),0,Wt::AlignmentFlag::Left);
     italian->setMaximumSize(46,28);
     mflagLayout->addSpacing(spaceWidth);
+
     auto german = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/de.jpg")),0,Wt::AlignmentFlag::Left);
     german->setMaximumSize(46,28);
     mflagLayout->addStretch(1);
@@ -50,16 +61,31 @@ intro::Header::Header()
     italian->decorationStyle().setCursor(Wt::Cursor::PointingHand);
     german->decorationStyle().setCursor(Wt::Cursor::PointingHand);
 
-    mLayout->addSpacing(150);
 }
 
 
 
-intro::Body::Body()
+
+
+
+intro::Body::Body(int _w, int _h)
+    :Width(_w),
+      Height(_h)
 {
+
+    setId("introBody");
+
+    setStyleClass("introBody");
+    setMinimumSize( WLength::Auto , _h-138-100 );
+    std::cout << "W: " << Width << "Height : " << Height << std::endl;
+
+    setMargin(WLength::Auto,Wt::AllSides);
 
     setContentAlignment(Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Middle);
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
+
+    mLayout->addStretch(1);
+
     {
         auto mlogolayout = mLayout->addLayout(cpp14::make_unique<WHBoxLayout>(),0,Wt::AlignmentFlag::Middle);
         mlogolayout->addWidget(cpp14::make_unique<WImage>(WLink("img/Logo.png")),0,Wt::AlignmentFlag::Right);
@@ -71,18 +97,23 @@ intro::Body::Body()
     }
 
     {
-        mLayout->addStretch(1);
+//        mLayout->addStretch(1);
         auto text = mLayout->addWidget(cpp14::make_unique<WText>("MOBILE TOOLS AND GAMIFICATION\nAS A NEW LANGUAGE ASSESSMENT SYSTEM IN TOURISM"),0,Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Middle);
         text->setStyleClass("intromobileText");
     }
 
     {
-        mLayout->addSpacing(10);
+        mLayout->addStretch(1);
         auto text = mLayout->addWidget(cpp14::make_unique<WText>("ENTER"),0,Wt::AlignmentFlag::Center);
         text->clicked().connect(this,&intro::Body::eEnterClick);
         text->setStyleClass("introenter");
+        mLayout->addStretch(1);
     }
+
+
 }
+
+
 
 Signal<int> &intro::Body::EnterClicked()
 {
@@ -100,6 +131,7 @@ void intro::Body::eEnterClick()
 
 intro::Footer::Footer()
 {
+    setId("introFooter");
     setStyleClass("introfooter");
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
     auto mogatTitleText = mLayout->addWidget(cpp14::make_unique<WText>("Mogat"),0,Wt::AlignmentFlag::Center);

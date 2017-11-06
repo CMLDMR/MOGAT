@@ -29,13 +29,16 @@ namespace intro {
     class Intro : public WContainerWidget
     {
     public:
-        Intro();
+        Intro(int _w = 0 , int _h = 0);
 
         Header* mHeader;
         Body* mBody;
         Footer* mFooter;
 
     private:
+
+        int width;
+        int height;
 
 
     };
@@ -64,7 +67,7 @@ namespace intro {
     class Body : public WContainerWidget
     {
     public:
-        Body();
+        Body(int _w = 0 , int _h = 0 );
 
         Signal<int> &EnterClicked();
 
@@ -72,6 +75,9 @@ namespace intro {
         Signal<int> _EnterClicked;
 
         void eEnterClick();
+
+        int Width;
+        int Height;
     };
 
     ///

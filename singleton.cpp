@@ -8,7 +8,7 @@ Singleton::Singleton(int _width, int _height)
 
     setMinimumSize(WLength::Auto,Height);
 
-    mIntroPage = addWidget(cpp14::make_unique<intro::Intro>());
+    mIntroPage = addWidget(cpp14::make_unique<intro::Intro>(Width,Height));
 
     mIntroPage->mBody->EnterClicked().connect(this,&Singleton::initMainPage);
 

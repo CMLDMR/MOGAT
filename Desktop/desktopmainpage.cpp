@@ -78,7 +78,7 @@ MainPage::Body::Body()
 
 
     mNavigationBar = addWidget(cpp14::make_unique<WNavigationBar>());
-
+    mNavigationBar->setAttributeValue("role","navigation");
     mNavigationBar->setTitle("MOGAT");
 
     mNavigationBar->setResponsive(true);
