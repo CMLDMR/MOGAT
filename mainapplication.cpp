@@ -40,7 +40,7 @@ void MainApplication::initMogat()
     root()->addWidget(Wt::cpp14::make_unique<Singleton>(this->viewPortWidth,this->viewPortHeight));
 }
 
-JSignal<int, int> &MainApplication::ViewPortDimension()
+JSignal<int, int, double> &MainApplication::ViewPortDimension()
 {
     return whChanged;
 }
@@ -56,9 +56,10 @@ JSignal<float> &MainApplication::PixelRatio()
     return _PixelRatio;
 }
 
-void MainApplication::f_whChanged(int w, int h)
+void MainApplication::f_whChanged(int w, int h, double r)
 {
 
+    std::cout << "W: " << w << " H: " << h << " R: " << r << std::endl;
     this->viewPortHeight = h;
     this->viewPortWidth = w;
     this->initMogat();
@@ -73,7 +74,14 @@ void MainApplication::getDimensionfBrowser()
     root()->doJavaScript(""
                          "var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);"
                          "var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
-                         +whChanged.createCall({"w,h"})+
+                         "var ratio = 1;"
+                         "if( window.screen.systemXDPI !== undefined && window.screen.logicalXDPI !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {"
+                         "ratio = window.screen.systemXDPI / window.screen.logicalXDPI;"
+                         "}"
+                         "else if (window.devicePixelRatio !== undefined) {"
+                         "ratio = window.devicePixelRatio;"
+                         "}"
+                         +whChanged.createCall({"w,h,ratio"})+
                          ";");
 
 

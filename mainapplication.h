@@ -42,7 +42,7 @@ public:
     /// \brief ViewPortDimension
     /// \return
     /// Emit Signal that captured browserviewport Dimensions like Width and Height.
-    JSignal<int,int>& ViewPortDimension();
+    JSignal<int,int,double>& ViewPortDimension();
 
 
 
@@ -57,7 +57,7 @@ public:
     /// \param w
     /// \param h
     /// Slot for Capturing Dimension of the Browser.
-    void f_whChanged(int w, int h);
+    void f_whChanged(int w, int h, double r);
 
 
     ///
@@ -83,7 +83,7 @@ private:
     int viewPortWidth, viewPortHeight;
     float viewPortPixelRatio;
 
-    JSignal<int,int> whChanged;
+    JSignal<int,int, double> whChanged;
 
     JSignal<int> _OrientationChanged;
 
