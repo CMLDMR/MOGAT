@@ -18,6 +18,13 @@
 #include <Wt/WMenu.h>
 #include <Wt/WToolBar.h>
 #include <Wt/WPushButton.h>
+#include <Wt/WComboBox>
+#include <Wt/WPopupMenu.h>
+#include <Wt/WMenuItem.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WMessageBox.h>
+#include <Wt/WBreak.h>
+#include <Wt/WMenu.h>
 
 
 using namespace Wt;
@@ -52,12 +59,12 @@ namespace MainPage {
 
 
     ///
-    /// \brief The Header class
-    /// Main Page Header Container Class
+    /// \brief intro page's Header Design Code
+    /// This Class include Title, Logo Origin cs...
     class Header : public WContainerWidget
     {
     public:
-        Header(int _w, int _h, double _r);
+        Header(int _w = 0 , int _h = 0 , double _ratio = 1);
 
         WImage* mEUFlag;
 
@@ -66,13 +73,14 @@ namespace MainPage {
         bool isVertical() const;
 
     private:
+
+        double Ratio;
         int Width;
         int Height;
-        double Ratio;
 
         bool mVertical;
-    };
 
+    };
 
     ///
     /// \brief The Body class
@@ -80,7 +88,7 @@ namespace MainPage {
     class Body : public WContainerWidget
     {
     public:
-        Body();
+        Body(int _w, int _h, double _r);
 
         WNavigationBar* mNavigationBar;
 
@@ -105,6 +113,15 @@ namespace MainPage {
         void f_About();
 
         void f_contact();
+
+        bool isVertical() const;
+
+    private:
+        int Width;
+        int Height;
+        double Ratio;
+
+        bool mVertical;
     };
 
 
@@ -133,7 +150,16 @@ namespace MainPage {
     class FlagWidget : public WContainerWidget
     {
     public:
-        FlagWidget();
+        FlagWidget(int _w , int _h , double _r);
+
+        bool isVertical() const;
+
+    private:
+        int Width;
+        int Height;
+        double Ratio;
+
+        bool mVertical;
     };
 
 
