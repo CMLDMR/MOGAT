@@ -2,13 +2,13 @@
 
 
 
-Singleton::Singleton(int _width, int _height)
-    :Width(_width),Height(_height)
+Singleton::Singleton(int _width, int _height, double _ratio )
+    :Width(_width),Height(_height),Ratio(_ratio)
 {
 
     setMinimumSize(WLength::Auto,Height);
 
-    mIntroPage = addWidget(cpp14::make_unique<intro::Intro>(Width,Height));
+    mIntroPage = addWidget(cpp14::make_unique<intro::Intro>(Width,Height,Ratio));
 
     mIntroPage->mBody->EnterClicked().connect(this,&Singleton::initMainPage);
 

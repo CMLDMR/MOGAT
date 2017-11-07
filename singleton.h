@@ -19,7 +19,7 @@ using namespace Wt;
 class Singleton : public WContainerWidget
 {
 public:
-    Singleton(int _width = 0, int _height = 0 );
+    Singleton(int _width = 0, int _height = 0 , double _ratio = 1);
 
 private:
 
@@ -40,6 +40,7 @@ private:
     /// Viewport Width and Height
     int Width;
     int Height;
+    double Ratio;
 
 
 

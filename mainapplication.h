@@ -81,7 +81,7 @@ private:
 
 
     int viewPortWidth, viewPortHeight;
-    float viewPortPixelRatio;
+    double viewPortPixelRatio;
 
     JSignal<int,int, double> whChanged;
 

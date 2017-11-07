@@ -37,7 +37,7 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 void MainApplication::initMogat()
 {
     root()->clear();
-    root()->addWidget(Wt::cpp14::make_unique<Singleton>(this->viewPortWidth,this->viewPortHeight));
+    root()->addWidget(Wt::cpp14::make_unique<Singleton>(this->viewPortWidth,this->viewPortHeight,viewPortPixelRatio));
 }
 
 JSignal<int, int, double> &MainApplication::ViewPortDimension()
@@ -62,6 +62,7 @@ void MainApplication::f_whChanged(int w, int h, double r)
     std::cout << "W: " << w << " H: " << h << " R: " << r << std::endl;
     this->viewPortHeight = h;
     this->viewPortWidth = w;
+    this->viewPortPixelRatio = r;
     this->initMogat();
 
 }
