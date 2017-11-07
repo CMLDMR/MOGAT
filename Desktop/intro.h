@@ -12,6 +12,13 @@
 #include <Wt/WImage.h>
 #include <Wt/WText.h>
 #include <Wt/WCssDecorationStyle.h>
+#include <Wt/WComboBox>
+#include <Wt/WPopupMenu.h>
+#include <Wt/WMenuItem.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WMessageBox.h>
+#include <Wt/WBreak.h>
+#include <Wt/WMenu.h>
 
 
 
@@ -126,7 +133,16 @@ namespace intro {
     class FlagWidget : public WContainerWidget
     {
     public:
-        FlagWidget();
+        FlagWidget(int _w , int _h , double _r);
+
+        bool isVertical() const;
+
+    private:
+        int Width;
+        int Height;
+        double Ratio;
+
+        bool mVertical;
     };
 
 

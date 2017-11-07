@@ -66,24 +66,58 @@ intro::Header::Header(int _w, int _h, double _ratio)
         mEUFlag->doJavaScript(str.toStdString());
     }
 
-    auto mDevLayout = mSubLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Left);
-    auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center);
-    mTitle->setStyleClass("introDevelopment_of_Innovation");
+    auto mDevLayout = mSubLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Left|AlignmentFlag::Middle);
+
 
     double fontSize = 34;
     if( Ratio != 1.0 )
     {
-        isVertical() ? fontSize *= Ratio/2.0 : fontSize;
+//        isVertical() ? fontSize *= Ratio/2.0 : fontSize;
+
+        if( isVertical() )
+        {
+            fontSize *= Ratio/2.2;
+
+            auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development\nof\nInnovation"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
+            mTitle->setStyleClass("introDevelopment_of_Innovation");
+
+
+
+
+            QString str = QString("var title = document.getElementById(\"%1\");"
+                                  "title.style.fontSize = \"%2px\";").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
+            mTitle->doJavaScript(str.toStdString());
+
+
+        }else{
+
+            auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
+            mTitle->setStyleClass("introDevelopment_of_Innovation");
+
+            QString str = QString("var title = document.getElementById(\"%1\");"
+                                  "title.style.fontSize = \"%2px\";"
+                                  "console.log(title.style.fontSize);").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
+            mTitle->doJavaScript(str.toStdString());
+        }
+    }else{
+        auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
+        mTitle->setStyleClass("introDevelopment_of_Innovation");
+
+        QString str = QString("var title = document.getElementById(\"%1\");"
+                              "title.style.fontSize = \"%2px\";"
+                              "console.log(title.style.fontSize);").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
+        mTitle->doJavaScript(str.toStdString());
     }
 
-    QString str = QString("var title = document.getElementById(\"%1\");"
-                          "title.style.fontSize = \"%2px\";"
-                          "console.log(title.style.fontSize);").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
-    mTitle->doJavaScript(str.toStdString());
 
 
 
-    auto mflagWidget = mDevLayout->addWidget(cpp14::make_unique<FlagWidget>(),1,Wt::AlignmentFlag::Justify);
+    if( Ratio > 1.0 )
+    {
+        mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(Width,Height,Ratio),1,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
+    }else{
+        mDevLayout->addWidget(cpp14::make_unique<FlagWidget>(Width,Height,Ratio),1,Wt::AlignmentFlag::Justify|AlignmentFlag::Middle);
+    }
 
 
 
@@ -314,28 +348,127 @@ bool intro::Footer::isVertical() const
     return mVertical;
 }
 
-intro::FlagWidget::FlagWidget()
+intro::FlagWidget::FlagWidget(int _w, int _h, double _r)
+    :Width(_w),Height(_h),Ratio(_r)
 {
-    auto mflagLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
+
+    if( Width > Height )
+    {
+        mVertical = false;
+    }else{
+        mVertical = true;
+    }
 
 
-    auto turkish = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/tr.jpg")),0,Wt::AlignmentFlag::Center);
-    turkish->setMaximumSize(46,28);
+    if( Ratio != 1.0 )
+    {
+
+            /// Mobile Page Vertical
+            auto mflagLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
+
+            auto container = mflagLayout->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>(),0,AlignmentFlag::Right);
+
+            auto statusPtr = Wt::cpp14::make_unique<Wt::WText>();
+            auto status = statusPtr.get();
+            status->setMargin(10, Wt::Side::Left | Wt::Side::Right);
+            status->setStyleClass("LangText");
 
 
-    auto english = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/en.jpg")),0,Wt::AlignmentFlag::Center);
-    english->setMaximumSize(46,28);
+            auto popupPtr = Wt::cpp14::make_unique<Wt::WPopupMenu>();
+            auto popup = popupPtr.get();
 
 
 
-    auto italian = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/it.jpg")),0,Wt::AlignmentFlag::Center);
-    italian->setMaximumSize(46,28);
 
-    auto german = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/de.jpg")),0,Wt::AlignmentFlag::Center);
-    german->setMaximumSize(46,28);
+            auto trMenu = popup->addItem("img/flags/tr.jpg", "TR")->triggered().connect([=] {
+                status->setText("Turkish");
+            });
 
-    english->decorationStyle().setCursor(Wt::Cursor::PointingHand);
-    turkish->decorationStyle().setCursor(Wt::Cursor::PointingHand);
-    italian->decorationStyle().setCursor(Wt::Cursor::PointingHand);
-    german->decorationStyle().setCursor(Wt::Cursor::PointingHand);
+
+            auto enMenu = popup->addItem("img/flags/en.jpg", "EN")->triggered().connect([=] {
+                status->setText("English");
+            });
+
+            auto itMenu = popup->addItem("img/flags/it.jpg", "IT")->triggered().connect([=] {
+                status->setText("Italian");
+            });
+
+            auto deMenu = popup->addItem("img/flags/de.jpg", "DE")->triggered().connect([=] {
+                status->setText("German");
+            });
+
+
+            container->addWidget(std::move(statusPtr));
+
+
+            Wt::WPushButton *button = container->addWidget(Wt::cpp14::make_unique<Wt::WPushButton>("Lang"));
+            button->setMenu(std::move(popupPtr));
+            button->setStyleClass("Langbtn");
+            button->setMinimumSize(WLength::Auto,25);
+
+            //mogatTitleText font restyling
+            {
+                int fontSize = 12;
+                if( Ratio != 1.0 )
+                {
+                    isVertical() ? fontSize *= Ratio/2 : fontSize *= Ratio/4;
+                    button->setMinimumSize(WLength::Auto,50);
+                }
+
+                QString str = QString("var title = document.getElementById(\"%1\");"
+                                      "title.style.fontSize = \"%2px\";").arg(button->id().c_str()).arg(Ratio*fontSize).toStdString().c_str();
+                button->doJavaScript(str.toStdString());
+            }
+
+
+            popup->setStyleClass("dropbtn");
+
+            //mogatTitleText font restyling
+            {
+                int fontSize = 10;
+                if( Ratio != 1.0 )
+                {
+                    isVertical() ? fontSize *= Ratio/2 : fontSize *= Ratio/3;
+                }
+
+                QString str = QString("var title = document.getElementById(\"%1\");"
+                                      "title.style.fontSize = \"%2px\";").arg(popup->id().c_str()).arg(Ratio*fontSize).toStdString().c_str();
+                popup->doJavaScript(str.toStdString());
+            }
+
+
+
+    }else{
+
+        /// Desktop Page
+        auto mflagLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
+
+
+        auto turkish = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/tr.jpg")),0,Wt::AlignmentFlag::Center);
+        turkish->setMaximumSize(46,28);
+
+
+        auto english = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/en.jpg")),0,Wt::AlignmentFlag::Center);
+        english->setMaximumSize(46,28);
+
+
+
+        auto italian = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/it.jpg")),0,Wt::AlignmentFlag::Center);
+        italian->setMaximumSize(46,28);
+
+        auto german = mflagLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/flags/de.jpg")),0,Wt::AlignmentFlag::Center);
+        german->setMaximumSize(46,28);
+
+        english->decorationStyle().setCursor(Wt::Cursor::PointingHand);
+        turkish->decorationStyle().setCursor(Wt::Cursor::PointingHand);
+        italian->decorationStyle().setCursor(Wt::Cursor::PointingHand);
+        german->decorationStyle().setCursor(Wt::Cursor::PointingHand);
+    }
+
+
+}
+
+bool intro::FlagWidget::isVertical() const
+{
+    return mVertical;
 }
