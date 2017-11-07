@@ -46,7 +46,25 @@ intro::Header::Header(int _w, int _h, double _ratio)
     mSubLayout->setContentsMargins(0,0,0,0);
 
 
-    mEUFlag = mSubLayout->addWidget(cpp14::make_unique<WImage>(WLink("/img/EurpanCommisionFlag.jpg")),0,Wt::AlignmentFlag::Right);
+    mEUFlag = mSubLayout->addWidget(cpp14::make_unique<WImage>(WLink("/img/EurpanCommisionFlag.jpg")),0,Wt::AlignmentFlag::Right|Wt::AlignmentFlag::Middle);
+
+    {
+        double d_width = 115;
+        double d_hegith = 92;
+
+        if( Ratio != 1 )
+        {
+            isVertical() ? d_width *= Ratio/2 : d_width *= Ratio/3;
+            isVertical() ? d_hegith *= Ratio/2 : d_hegith *= Ratio/3;
+        }
+
+
+
+        QString str = QString("var title = document.getElementById(\"%1\");"
+                              "title.style.width = \"%2px\";"
+                              "title.style.height = \"%3px\";").arg(mEUFlag->id().c_str()).arg((int)d_width).arg((int)d_hegith).toStdString().c_str();
+        mEUFlag->doJavaScript(str.toStdString());
+    }
 
     auto mDevLayout = mSubLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Left);
     auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center);
