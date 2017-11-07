@@ -72,7 +72,6 @@ intro::Header::Header(int _w, int _h, double _ratio)
     double fontSize = 34;
     if( Ratio != 1.0 )
     {
-//        isVertical() ? fontSize *= Ratio/2.0 : fontSize;
 
         if( isVertical() )
         {
@@ -80,8 +79,6 @@ intro::Header::Header(int _w, int _h, double _ratio)
 
             auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development\nof\nInnovation"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
             mTitle->setStyleClass("introDevelopment_of_Innovation");
-
-
 
 
             QString str = QString("var title = document.getElementById(\"%1\");"
@@ -108,9 +105,6 @@ intro::Header::Header(int _w, int _h, double _ratio)
                               "console.log(title.style.fontSize);").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
         mTitle->doJavaScript(str.toStdString());
     }
-
-
-
 
     if( Ratio > 1.0 )
     {
@@ -373,12 +367,8 @@ intro::FlagWidget::FlagWidget(int _w, int _h, double _r)
             status->setMargin(10, Wt::Side::Left | Wt::Side::Right);
             status->setStyleClass("LangText");
 
-
             auto popupPtr = Wt::cpp14::make_unique<Wt::WPopupMenu>();
             auto popup = popupPtr.get();
-
-
-
 
             auto trMenu = popup->addItem("img/flags/tr.jpg", "TR")->triggered().connect([=] {
                 status->setText("Turkish");

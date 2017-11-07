@@ -18,5 +18,6 @@ Singleton::Singleton(int _width, int _height, double _ratio )
 void Singleton::initMainPage()
 {
     clear();
+
     mDesktopMainPage = addWidget(cpp14::make_unique<MainPage::DesktopMainPage>(Width,Height,Ratio));
 }
