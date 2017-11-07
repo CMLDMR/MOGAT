@@ -2,6 +2,7 @@
 #define DESKTOPMAINPAGE_H
 
 #include <QtCore/qglobal.h>
+#include <QString>
 
 
 #include <Wt/WContainerWidget.h>
@@ -39,9 +40,14 @@ namespace MainPage {
     class DesktopMainPage : public WContainerWidget
     {
     public:
-        DesktopMainPage();
+        DesktopMainPage(int _w , int _h , double _r );
 
         WVBoxLayout* mLayout;
+
+    private:
+        int Width;
+        int Height;
+        double Ratio;
     };
 
 
@@ -51,11 +57,20 @@ namespace MainPage {
     class Header : public WContainerWidget
     {
     public:
-        Header();
+        Header(int _w, int _h, double _r);
 
         WImage* mEUFlag;
 
         WHBoxLayout* mLayout;
+
+        bool isVertical() const;
+
+    private:
+        int Width;
+        int Height;
+        double Ratio;
+
+        bool mVertical;
     };
 
 

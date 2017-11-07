@@ -2,26 +2,36 @@
 
 
 
-MainPage::DesktopMainPage::DesktopMainPage()
+MainPage::DesktopMainPage::DesktopMainPage(int _w, int _h, double _r)
+    :Ratio(_r),
+      Width(_w),
+      Height(_h)
 {
-
-//    decorationStyle().setBackgroundImage("img/Background.jpg",Orientation::Horizontal | Orientation::Vertical,Wt::AllSides);
 
     setStyleClass("DesktopMainPage");
 
     mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
 
-
-
-    mLayout->addWidget(cpp14::make_unique<Header>());
+    mLayout->addWidget(cpp14::make_unique<Header>(Width,Height,Ratio));
 
     mLayout->addWidget(cpp14::make_unique<Body>(),0,Wt::AlignmentFlag::Center);
 
     mLayout->addWidget(cpp14::make_unique<Footer>());
 }
 
-MainPage::Header::Header()
+MainPage::Header::Header(int _w , int _h , double _r)
+    :Ratio(_r),
+      Width(_w),
+      Height(_h)
 {
+
+    if( Width > Height )
+    {
+        mVertical = false;
+    }else{
+        mVertical = true;
+    }
+
 
 
     mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
@@ -40,15 +50,50 @@ MainPage::Header::Header()
     mSubLayout->setContentsMargins(0,0,0,0);
 
 
-    mEUFlag = mSubLayout->addWidget(cpp14::make_unique<WImage>(WLink("/img/EurpanCommisionFlag.jpg")),0,Wt::AlignmentFlag::Left);
+    mEUFlag = mSubLayout->addWidget(cpp14::make_unique<WImage>(WLink("/img/EurpanCommisionFlag.jpg")),0,Wt::AlignmentFlag::Center|Wt::AlignmentFlag::Middle);
+
+    {
+        double d_width = 115;
+        double d_hegith = 92;
+
+        if( Ratio != 1 )
+        {
+            isVertical() ? d_width *= Ratio/2 : d_width *= Ratio/3;
+            isVertical() ? d_hegith *= Ratio/2 : d_hegith *= Ratio/3;
+        }
+
+
+
+        QString str = QString("var title = document.getElementById(\"%1\");"
+                              "title.style.width = \"%2px\";"
+                              "title.style.height = \"%3px\";").arg(mEUFlag->id().c_str()).arg((int)d_width).arg((int)d_hegith).toStdString().c_str();
+        mEUFlag->doJavaScript(str.toStdString());
+    }
+
 
     auto mDevLayout = mSubLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Left);
     auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center);
     mTitle->setStyleClass("introDevelopment_of_Innovation");
 
+    double fontSize = 34;
+    if( Ratio != 1.0 )
+    {
+        isVertical() ? fontSize *= Ratio/2.0 : fontSize;
+    }
+
+    QString str = QString("var title = document.getElementById(\"%1\");"
+                          "title.style.fontSize = \"%2px\";"
+                          "console.log(title.style.fontSize);").arg(mTitle->id().c_str()).arg(fontSize).toStdString().c_str();
+    mTitle->doJavaScript(str.toStdString());
+
     auto mflagWidget = mDevLayout->addWidget(cpp14::make_unique<FlagWidget>(),1,Wt::AlignmentFlag::Justify);
 
 
+}
+
+bool MainPage::Header::isVertical() const
+{
+    return mVertical;
 }
 
 MainPage::Footer::Footer()
