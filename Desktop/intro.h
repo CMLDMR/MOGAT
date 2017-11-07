@@ -54,11 +54,21 @@ namespace intro {
     class Header : public WContainerWidget
     {
     public:
-        Header(double _ratio = 1);
+        Header(int _w = 0 , int _h = 0 , double _ratio = 1);
 
         WImage* mEUFlag;
 
         WHBoxLayout* mLayout;
+
+        bool isVertical() const;
+
+    private:
+
+        double Ratio;
+        int Width;
+        int Height;
+
+        bool mVertical;
 
     };
 
@@ -69,9 +79,11 @@ namespace intro {
     class Body : public WContainerWidget
     {
     public:
-        Body(int _w = 0 , int _h = 0 );
+        Body(int _w = 0 , int _h = 0 , double _r = 1);
 
         Signal<int> &EnterClicked();
+
+        bool isVertical() const;
 
     private:
         Signal<int> _EnterClicked;
@@ -80,6 +92,9 @@ namespace intro {
 
         int Width;
         int Height;
+        double Ratio;
+
+        bool mVertical;
     };
 
     ///
@@ -89,9 +104,17 @@ namespace intro {
     class Footer : public WContainerWidget
     {
     public:
-        Footer();
+        Footer(int _w, int _h , double _r);
+
+        bool isVertical() const;
 
     private:
+
+        int Width;
+        int Height;
+        double Ratio;
+         bool mVertical;
+
         const std::string legalNoitice{"This project has been financed with the support of the European Commission."
                                         "The authors are solely responsible for this publication and the Commission does not accept responsibility for the use that could be made of the information contained within it."
                                         "All the content on this website, including but not limited to, the name, the logo, the web pages content (text and images) and any downloadable file, belong to MOGAT. The use of this content is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License."};
