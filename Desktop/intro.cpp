@@ -1,13 +1,14 @@
 #include "intro.h"
 
-intro::Intro::Intro(int _w, int _h)
+intro::Intro::Intro(int _w, int _h, double _ratio)
     :width(_w),
-      height(_h)
+      height(_h),
+      ratio(_ratio)
 {
 
     setContentAlignment(Wt::AlignmentFlag::Center);
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
-    mHeader = mLayout->addWidget(cpp14::make_unique<Header>());
+    mHeader = mLayout->addWidget(cpp14::make_unique<Header>(ratio));
     mBody = mLayout->addWidget(cpp14::make_unique<Body>(width,height),0,Wt::AlignmentFlag::Middle);
     mFooter = mLayout->addWidget(cpp14::make_unique<Footer>(),0,Wt::AlignmentFlag::Bottom);
     setStyleClass("introMain");
@@ -16,16 +17,27 @@ intro::Intro::Intro(int _w, int _h)
 
 
 
-intro::Header::Header()
+intro::Header::Header(double _ratio)
 {
 
     mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
     mLayout->setContentsMargins(0,0,0,0);
 
 
+
+
     auto MainContainer = mLayout->addWidget(cpp14::make_unique<WContainerWidget>());
 
     setStyleClass("introheader");
+
+//    document.getElementById("myP").style.fontSize = "xx-large";
+
+
+
+
+
+
+
 
     auto mSubLayout = MainContainer->setLayout(cpp14::make_unique<WHBoxLayout>());
     mSubLayout->setContentsMargins(0,0,0,0);
@@ -36,6 +48,16 @@ intro::Header::Header()
     auto mDevLayout = mSubLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Left);
     auto mTitle = mDevLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center);
     mTitle->setStyleClass("introDevelopment_of_Innovation");
+    QString str = QString("var title = document.getElementById(\"%1\");"
+                          "title.style.fontSize = \"%2px\";"
+                          "console.log(title.style.fontSize);"
+                          "console.log(%3);").arg(mTitle->id().c_str()).arg(_ratio*18).arg(_ratio).toStdString().c_str();
+
+    std::cout << "Ratio: " << _ratio << std::endl;
+    std::cout << str.toStdString() << std::endl;
+
+    mTitle->doJavaScript(str.toStdString());
+
 
     auto mflagWidget = mDevLayout->addWidget(cpp14::make_unique<FlagWidget>(),1,Wt::AlignmentFlag::Justify);
 

@@ -2,6 +2,7 @@
 #define INTRO_H
 
 #include <QtCore/qglobal.h>
+#include <QString>
 
 #include <Wt/WContainerWidget.h>
 
@@ -29,7 +30,7 @@ namespace intro {
     class Intro : public WContainerWidget
     {
     public:
-        Intro(int _w = 0 , int _h = 0);
+        Intro(int _w = 0 , int _h = 0 , double _ratio = 1);
 
         Header* mHeader;
         Body* mBody;
@@ -39,6 +40,7 @@ namespace intro {
 
         int width;
         int height;
+        double ratio;
 
 
     };
@@ -52,7 +54,7 @@ namespace intro {
     class Header : public WContainerWidget
     {
     public:
-        Header();
+        Header(double _ratio = 1);
 
         WImage* mEUFlag;
 
