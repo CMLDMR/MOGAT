@@ -157,49 +157,80 @@ MainPage::Body::Body( int _w , int _h , double _r )
 
     menuBar = mLayout->addWidget(cpp14::make_unique<WToolBar>(),0,Wt::AlignmentFlag::Center|AlignmentFlag::Top);
 
+
+    std::vector<std::string> buttonidList;
+
     auto MogatButton = cpp14::make_unique<WPushButton>("MOGAT");
     MogatButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     MogatButton.get()->setStyleClass("mainBtn");
     MogatButton.get()->clicked().connect(this,&Body::f_Mogat);
+    buttonidList.push_back(MogatButton->id());
     menuBar->addButton(std::move(MogatButton));
+
+
+
 
     auto ObjectiveButton = cpp14::make_unique<WPushButton>("OBJECTIVES");
     ObjectiveButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     ObjectiveButton.get()->setStyleClass("mainBtn");
     ObjectiveButton.get()->clicked().connect(this,&Body::f_objective);
+    buttonidList.push_back(ObjectiveButton->id());
     menuBar->addButton(std::move(ObjectiveButton));
 
     auto ResourceButton = cpp14::make_unique<WPushButton>("RESOURCES");
     ResourceButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     ResourceButton.get()->setStyleClass("mainBtn");
     ResourceButton.get()->clicked().connect(this,&Body::f_resource);
+    buttonidList.push_back(ResourceButton->id());
     menuBar->addButton(std::move(ResourceButton));
 
     auto NewsButton = cpp14::make_unique<WPushButton>("NEWS");
     NewsButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     NewsButton.get()->setStyleClass("mainBtn");
     NewsButton.get()->clicked().connect(this,&Body::f_News);
+    buttonidList.push_back(NewsButton->id());
     menuBar->addButton(std::move(NewsButton));
 
     auto CollabratorsButton = cpp14::make_unique<WPushButton>("COLLABRATORS");
     CollabratorsButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     CollabratorsButton.get()->setStyleClass("mainBtn");
     CollabratorsButton.get()->clicked().connect(this,&Body::f_collabrators);
+    buttonidList.push_back(CollabratorsButton->id());
     menuBar->addButton(std::move(CollabratorsButton));
 
     auto ContactButton = cpp14::make_unique<WPushButton>("CONTACT");
     ContactButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     ContactButton.get()->setStyleClass("mainBtn");
     ContactButton.get()->clicked().connect(this,&Body::f_contact);
+    buttonidList.push_back(ContactButton->id());
     menuBar->addButton(std::move(ContactButton),Wt::AlignmentFlag::Right);
 
     auto AboutButton = cpp14::make_unique<WPushButton>("ABOUT");
     AboutButton.get()->setIcon(WLink("img/btn-flat.jpg"));
     AboutButton.get()->setStyleClass("mainBtn");
     AboutButton.get()->clicked().connect(this,&Body::f_About);
+    buttonidList.push_back(AboutButton->id());
+    {
+
+        int fontSize = 16;
+        if( Ratio != 1.0 )
+        {
+            isVertical() ? fontSize *= Ratio : fontSize *= (int)(Ratio/3.0*2.0);
+        }
+
+        QString str = "";
+        for( int i = 0 ; i < buttonidList.size() ; i++ )
+        {
+            std::string btnid = buttonidList.at(i);
+            str += QString("var title%1 = document.getElementById(\"%2\");"
+                                                        "title%3.style.fontSize = \"%4px\";").arg(i).arg(btnid.c_str()).arg(i).arg(fontSize);
+        }
+        menuBar->doJavaScript(str.toStdString());
+    }
+
+
     menuBar->addButton(std::move(AboutButton),Wt::AlignmentFlag::Right);
 
-//    mLayout->addStretch(1);
 
     mContentLayout = mLayout->addLayout(cpp14::make_unique<WVBoxLayout>(),0,Wt::AlignmentFlag::Center);
 
@@ -232,7 +263,7 @@ void MainPage::Body::f_Mogat()
         int fontSize = 18;
         if( Ratio != 1.0 )
         {
-            isVertical() ? fontSize *= Ratio : fontSize *= (int)(Ratio/3.0*2.0);
+            isVertical() ? fontSize *= (Ratio*1.5) : fontSize *= (int)(Ratio/3.0*2.0);
         }
 
         QString str = QString("var title = document.getElementById(\"%1\");"
