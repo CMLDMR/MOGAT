@@ -8,27 +8,34 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 
 
 
-//    p_wtTheme = std::make_shared<Wt::WBootstrapTheme>();
-//    p_wtTheme->setVersion(Wt::WBootstrapTheme::Version::v3);
-//    p_wtTheme.get()->setResponsive(true);
-//    Wt::WApplication::instance()->setTheme(p_wtTheme);
-//    Wt::WApplication::instance()->setTitle("Mogat Official Page");
+    p_wtTheme = std::make_shared<Wt::WBootstrapTheme>();
+    p_wtTheme->setVersion(Wt::WBootstrapTheme::Version::v3);
+    p_wtTheme.get()->setResponsive(true);
+    Wt::WApplication::instance()->setTheme(p_wtTheme);
+    Wt::WApplication::instance()->setTitle("Mogat Official Page");
 
-    WApplication::useStyleSheet(WLink("css/intro.css"));
     WApplication::useStyleSheet(WLink("css/mainPage.css"));
 
-    Wt::WApplication::instance()->setBodyClass("RootGovde");
+    Wt::WApplication::instance()->useStyleSheet("resources/themes/bootstrap/3/bootstrap-theme.min.css");
 
-//    root()->addStyleClass("container");
+    Wt::WApplication::instance()->setBodyClass("introMain");
+
+//    root()->addStyleClass("borderLine");
+
+
 
     WApplication::instance()->addMetaHeader("viewport","width=device.width, initial-scale=1.0");
 
-    this->getDimensionfBrowser();
+
+    this->initMogat();
 
 
-    this->OrientationChanged().connect(this,&MainApplication::getDimensionfBrowser);
+//    this->getDimensionfBrowser();
 
-    root()->doJavaScript("window.addEventListener(\"orientationchange\",function(){" + _OrientationChanged.createCall({"4"}) + "},false);");
+
+//    this->OrientationChanged().connect(this,&MainApplication::getDimensionfBrowser);
+
+//    root()->doJavaScript("window.addEventListener(\"orientationchange\",function(){" + _OrientationChanged.createCall({"4"}) + "},false);");
 
 
 

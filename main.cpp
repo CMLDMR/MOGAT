@@ -3,7 +3,8 @@
 #include "mainapplication.h"
 
 
-
+///https://www.flaticon.com/packs/essential-collection
+/// https://codepen.io/asfarmed/pen/cfslr
 
 int main(int argc, char *argv[])
 {

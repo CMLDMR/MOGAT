@@ -19,6 +19,7 @@
 #include <Wt/WMessageBox.h>
 #include <Wt/WBreak.h>
 #include <Wt/WMenu.h>
+#include <Wt/WLabel>
 
 
 
@@ -37,17 +38,12 @@ namespace intro {
     class Intro : public WContainerWidget
     {
     public:
-        Intro(int _w = 0 , int _h = 0 , double _ratio = 1);
+        Intro();
 
         Header* mHeader;
         Body* mBody;
         Footer* mFooter;
 
-    private:
-
-        int width;
-        int height;
-        double ratio;
 
 
     };
@@ -61,21 +57,9 @@ namespace intro {
     class Header : public WContainerWidget
     {
     public:
-        Header(int _w = 0 , int _h = 0 , double _ratio = 1);
-
-        WImage* mEUFlag;
+        Header();
 
         WHBoxLayout* mLayout;
-
-        bool isVertical() const;
-
-    private:
-
-        double Ratio;
-        int Width;
-        int Height;
-
-        bool mVertical;
 
     };
 
@@ -86,22 +70,17 @@ namespace intro {
     class Body : public WContainerWidget
     {
     public:
-        Body(int _w = 0 , int _h = 0 , double _r = 1);
+        Body();
 
         Signal<int> &EnterClicked();
 
-        bool isVertical() const;
+
 
     private:
         Signal<int> _EnterClicked;
 
         void eEnterClick();
 
-        int Width;
-        int Height;
-        double Ratio;
-
-        bool mVertical;
     };
 
     ///
@@ -111,16 +90,10 @@ namespace intro {
     class Footer : public WContainerWidget
     {
     public:
-        Footer(int _w, int _h , double _r);
-
-        bool isVertical() const;
+        Footer();
 
     private:
 
-        int Width;
-        int Height;
-        double Ratio;
-         bool mVertical;
 
         const std::string legalNoitice{"This project has been financed with the support of the European Commission."
                                         "The authors are solely responsible for this publication and the Commission does not accept responsibility for the use that could be made of the information contained within it."
@@ -133,16 +106,8 @@ namespace intro {
     class FlagWidget : public WContainerWidget
     {
     public:
-        FlagWidget(int _w , int _h , double _r);
+        FlagWidget();
 
-        bool isVertical() const;
-
-    private:
-        int Width;
-        int Height;
-        double Ratio;
-
-        bool mVertical;
     };
 
 

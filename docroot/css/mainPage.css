@@ -1,116 +1,878 @@
+.borderLine
+{
+    border: 1px solid black;
+}
 
-.mainheader {
-    max-height:138px;
-    background-color: #58738b;
-    left:0px;
-    right:0px;
-    top:0px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    position:relative;
+
+.shadow{
+    text-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
+}
+
+.boxshadow{
     box-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
 }
 
-.DesktopMainPage
+
+
+.header {
+    background-color: #58738b;
+    display:block;
+}
+
+
+
+.headerTitle {
+  font-family: "Source Sans Pro";
+  color: rgb(255, 255, 255);
+  font-weight: normal;
+  font-variant: small-caps;
+  top:0px;
+}
+
+
+
+.mogatSubTitle
 {
-    background-image: url("../img/Background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    top:0px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-}
-
-
-
-
-.mainHomeIMG
-{
-    position:relative;
-    top:-15px;
-    width:%80;
-    height:%100;
-    overflow:hidden;
-}
-
-
-.mainfooter {
-    background-color: #303030;
-    position:relative;
-}
-
-
-.desktopMainBody
-{
-    position:relative;
-}
-
-
-.navbar-default {
-    background-image: rgba(0,0,0,0.25);
-    color:#498091;
-}
-
-.mainBtn {
-    color:#498091;
     font-size: 16px;
-    font-weight:bold;
-    font-family: "Tahoma";
-    background-color: rgba(0,0,0,0.1);
-    transition: ease-in-out .5s;
-    border: 0px;
-    padding-top:0px;
-    padding-bottom:0px;
-    top:0px;
-   }
-
-.mainBtn:hover {
-    color:white;
-    background-color: #3a6a79;
-    cursor:pointer;
-   }
-
-.mainBtn:active {
-    background-color: #1a4a59;
-   }
-
-
-.mainPageTitle
-{
-    font-size: 24px;
-    font-weight:bold;
-    font-family: "Tahoma";
 }
 
-.longText
-{
-    font-family: "Tahoma";
-    text-align:justify;
-}
-
-/////////////////////////////////////////
 
 
 
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+    .headerTitle {
+      font-size: 24px;
+      max-height: 77px;
+      padding-top:0px;
+      margin-top:0px;
+      padding-bottom:0px;
+      margin-bottom:0px;
+    }
+
+    .header {
+        max-height:77px;
+        padding-top:0px;
+        margin-top:0px;
+    }
+
+    .MobileFlagWidget{
+        display: none!important;
+    }
+
+    .DesktopFlagWidget{
+        display:flex!important;
+        margin:0px 0px 0px 0px !important;
+        padding: 0px 0px 0px 0px !important;
+        max-height:28px;
+    }
+
+    .introBody{
+        height: 100%;
+        display:blocks;
+        margin:auto;
+        min-height:700px;
+    }
+
+    .MogatTitle{
+        font-size: 84px;
+        font-weight:bold;
+    }
+
+    .MogatDes{
+        font-size: 34px;
+        text-align:center;
+        color:white;
+        max-width:1200px;
+    }
+
+    .MogatEnt{
+        font-size: 64px;
+        text-align:center;
+        color:white;
+        font-weight:lighter;
+        font-family:"Tahoma";
+        transition: ease-in-out 0.25s;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        margin-left:10px;
+        margin-right:10px;
+        padding-right:20px;
+        padding-left:20px;
+        background-color:rgba(255,255,255,0);
+    }
+
+    .MogatEnt:hover{
+        cursor:pointer;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        color:black;
+        background-color:rgba(255,255,255,1);
+    }
+
+    .MogatEnt:active{
+        color:white;
+        background-color:rgba(0,0,0,1);
+    }
+
+
+    .footer
+    {
+        background-color:rgb(33,33,33);
+        color:white;
+        position:fixed;
+        bottom:0px;
+        font-size: 9px;
+        margin:auto;
+        left:0px;
+        right:0px;
+    }
+
+    .mogatSubTitle
+    {
+        font-size: 16px;
+    }
+
+    .legalNotice{
+        display:flex;
+    }
 
 
 
+    .introMain{
+        top:0px;
+        bottom:0px;
+        right:0px;
+        left:0px;
+        background: #8997a4 url('http://serik.mescomedia.com/img/tumblr_static_bg3.png') repeat 0 0;
+        -webkit-animation: 30s linear 0s normal none infinite animate;
+        -moz-animation: 30s linear 0s normal none infinite animate;
+        -ms-animation: 30s linear 0s normal none infinite animate;
+        -o-animation: 30s linear 0s normal none infinite animate;
+        animation: 30s linear 0s normal none infinite animate;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background-size:cover;
+        width: 96px;
+        height:77px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .MogatLogo
+    {
+        background: url('http://serik.mescomedia.com/img/Logo1.png');
+        background-size:cover;
+        width: 107px;
+        height:212px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .flagwidget
+    {
+        display:flex!important;
+    }
+
+    .flagwidgetLandScape
+    {
+        display:none!important;
+    }
 
 
 
-.introMain{
-    position:absolute;
-    top:0px;
+.device0{
+    display:block;
+    position:fixed;
     bottom:0px;
-    right:0px;
-    left:0px;
-    background: #8997a4 url('http://192.168.3.220/img/tumblr_static_bg3.png') repeat 0 0;
-    -webkit-animation: 30s linear 0s normal none infinite animate;
-    -moz-animation: 30s linear 0s normal none infinite animate;
-    -ms-animation: 30s linear 0s normal none infinite animate;
-    -o-animation: 30s linear 0s normal none infinite animate;
-    animation: 30s linear 0s normal none infinite animate;
+    color:white;
+    font-weight:bold;
+    background-color: red;
 }
+.device1{
+    display:none;
+}
+.device2{
+    display:none;
+}
+.device3{
+    display:none;
+}
+.device4{
+    display:none;
+}
+
+
+}
+
+
+
+
+
+
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .headerTitle {
+      font-size: 44px;
+      max-height: 77px;
+      padding-top:0px;
+      margin-top:0px;
+      padding-bottom:0px;
+      margin-bottom:0px;
+    }
+
+    .header {
+        max-height:77px;
+        padding-top:0px;
+        margin-top:0px;
+    }
+
+    .MobileFlagWidget{
+        display: flex!important;
+    }
+
+    .DesktopFlagWidget{
+        display: none!important;
+    }
+
+    .introBody{
+        height: 100%;
+        display:blocks;
+        margin:auto;
+        min-height:600px;
+    }
+
+    .MogatTitle{
+        font-size: 84px;
+        font-weight:bold;
+    }
+
+    .MogatDes{
+        font-size: 34px;
+        text-align:center;
+        color:white;
+        max-width:1024px;
+    }
+
+
+    .footer
+    {
+        background-color:rgb(33,33,33);
+        color:white;
+        position:fixed;
+        bottom:0px;
+        font-size: 9px;
+        margin:auto;
+        left:0px;
+        right:0px;
+    }
+
+    .mogatSubTitle
+    {
+        font-size: 16px;
+    }
+
+    .legalNotice{
+        display:flex;
+    }
+
+
+    .MogatEnt{
+        font-size: 64px;
+        text-align:center;
+        color:white;
+        font-weight:lighter;
+        font-family:"Tahoma";
+        transition: ease-in-out 0.25s;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        margin-left:10px;
+        margin-right:10px;
+        padding-right:20px;
+        padding-left:20px;
+        background-color:rgba(255,255,255,0);
+    }
+
+    .MogatEnt:hover{
+        cursor:pointer;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        color:black;
+        background-color:rgba(255,255,255,1);
+    }
+
+    .MogatEnt:active{
+        color:white;
+        background-color:rgba(0,0,0,1);
+    }
+
+
+    .introMain{
+        background: #8997a4;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background-size:cover;
+        width: 96px;
+        height:77px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .MogatLogo
+    {
+        background: url('http://serik.mescomedia.com/img/Logo1.png');
+        background-size:cover;
+        width: 60px;
+        height:121px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .flagwidget
+    {
+        display:none!important;
+    }
+
+    .flagwidgetLandScape
+    {
+        display:flex!important;
+    }
+
+
+.device0{
+    display:none;
+}
+.device1{
+    display:block;
+    position:fixed;
+    bottom:0px;
+    color:white;
+    font-weight:bold;
+    background-color: green;
+}
+.device2{
+    display:none;
+}
+.device3{
+    display:none;
+}
+.device4{
+    display:none;
+}
+
+
+}
+
+
+
+
+
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .headerTitle {
+      font-size: 44px;
+      max-height: 77px;
+      padding-top:0px;
+      margin-top:0px;
+      padding-bottom:0px;
+      margin-bottom:0px;
+    }
+
+    .header {
+        max-height:77px;
+        padding-top:0px;
+        margin-top:0px;
+    }
+
+    .MobileFlagWidget{
+        display: flex!important;
+    }
+
+    .DesktopFlagWidget{
+        display: none!important;
+    }
+
+    .introBody{
+        height: 100%;
+        display:blocks;
+        margin:auto;
+        min-height:800px;
+    }
+
+    .MogatTitle{
+        font-size: 84px;
+        font-weight:bold;
+    }
+
+    .MogatDes{
+        font-size: 34px;
+        text-align:center;
+        color:white;
+        max-width:1024px;
+    }
+
+
+    .footer
+    {
+        background-color:rgb(33,33,33);
+        color:white;
+        position:fixed;
+        bottom:0px;
+        font-size: 10px;
+        margin:auto;
+        left:0px;
+        right:0px;
+    }
+
+    .mogatSubTitle
+    {
+        font-size: 16px;
+    }
+
+    .legalNotice{
+        display:flex;
+    }
+
+
+    .MogatEnt{
+        font-size: 64px;
+        text-align:center;
+        color:white;
+        font-weight:lighter;
+        font-family:"Tahoma";
+        transition: ease-in-out 0.25s;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        margin-left:10px;
+        margin-right:10px;
+        padding-right:20px;
+        padding-left:20px;
+        background-color:rgba(255,255,255,0);
+    }
+
+    .MogatEnt:hover{
+        cursor:pointer;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 25px;
+        color:black;
+        background-color:rgba(255,255,255,1);
+    }
+
+    .MogatEnt:active{
+        color:white;
+        background-color:rgba(0,0,0,1);
+    }
+
+
+    .introMain{
+        background: #8997a4;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background-size:cover;
+        width: 96px;
+        height:77px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .MogatLogo
+    {
+        background: url('http://serik.mescomedia.com/img/Logo1.png');
+        background-size:cover;
+        width: 60px;
+        height:121px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .flagwidget
+    {
+        display:none!important;
+    }
+
+    .flagwidgetLandScape
+    {
+        display:flex!important;
+    }
+
+
+.device0{
+    display:none;
+}
+.device1{
+    display:none;
+}
+.device2{
+    display:block;
+    position:fixed;
+    bottom:0px;
+    color:white;
+    font-weight:bold;
+    background-color: blue;
+}
+.device3{
+    display:none;
+}
+.device4{
+    display:none;
+}
+
+
+}
+
+
+
+
+
+
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+    .headerTitle {
+      font-size: 28px;
+      max-height: 77px;
+      padding-top:0px;
+      margin-top:0px;
+      padding-bottom:0px;
+      margin-bottom:0px;
+    }
+
+    .header {
+        max-height:77px;
+        padding-top:0px;
+        margin-top:0px;
+    }
+
+
+    .MobileFlagWidget{
+        display: flex!important;
+        margin:0px 0px 0px 0px !important;
+        padding: 0px 0px 0px 0px !important;
+        max-height:28px;
+    }
+
+    .DesktopFlagWidget{
+        display: none!important;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background-size:cover;
+        width: 68px;
+        height:55px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+        text-align:center;
+    }
+
+    .MogatLogo
+    {
+        background: url('http://serik.mescomedia.com/img/Logo1.png');
+        background-size:cover;
+        width: 29px;
+        height:58px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+
+
+
+    .flagwidget
+    {
+        display:none!important;
+    }
+
+    .flagwidgetLandScape
+    {
+        display:flex!important;
+    }
+
+
+    .introMain{
+        background: #8997a4;
+    }
+
+
+    .footer
+    {
+        background-color:rgb(33,33,33);
+        color:white;
+        position:fixed;
+        bottom:0px;
+        font-size: 9px;
+        margin:auto;
+        left:0px;
+        right:0px;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    .mogatSubTitle
+    {
+        font-size: 14px;
+    }
+
+    .legalNotice{
+        display:none;
+    }
+
+    .MogatEnt{
+        font-size: 30px;
+        text-align:center;
+        color:white;
+        font-weight:lighter;
+        font-family:"Tahoma";
+        transition: ease-in-out 0.25s;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 15px;
+        margin-left:10px;
+        margin-right:10px;
+        padding-right:20px;
+        padding-left:20px;
+        background-color:rgba(255,255,255,0);
+    }
+
+    .MogatEnt:hover{
+        cursor:pointer;
+        border: 2px solid rgba(255,255,255,1);
+        color:black;
+        background-color:rgba(255,255,255,1);
+    }
+
+    .MogatEnt:active{
+        color:white;
+        background-color:rgba(0,0,0,1);
+    }
+
+    .MogatDes{
+        font-size: 16px;
+        text-align:center;
+        color:white;
+        max-width:1200px;
+    }
+
+    .MogatTitle{
+        font-size: 34px;
+        font-weight:bold;
+    }
+
+
+
+
+.device0{
+    display:none;
+}
+.device1{
+    display:none;
+}
+.device2{
+    display:none;
+}
+.device3{
+    display:block;
+    position:fixed;
+    bottom:0px;
+    color:white;
+    font-weight:bold;
+    background-color: black;
+}
+.device4{
+    display:none;
+}
+
+
+}
+
+
+
+
+
+
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+    .headerTitle {
+      font-size:        14px;
+      padding-top:      0px;
+      margin-top:       0px;
+      padding-bottom:   0px;
+      margin-bottom:    0px;
+    }
+
+    .header {
+        padding-top:0px;
+        margin-top:0px;
+        min-height:60px;
+    }
+
+    .MobileFlagWidget{
+        display:    flex!important;
+        margin:     0px 0px 0px 0px !important;
+        padding:    0px 0px 0px 0px !important;
+        position:absolute;
+        text-align:center;
+    }
+
+    .DesktopFlagWidget{
+        display: none!important;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background-size:cover;
+        width: 71px;
+        height:57px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+        overflow:hidden;
+        text-align:left;
+        margin:auto;
+        left:0px;
+        background-color:red;
+        position:absolute;
+    }
+
+    .legalNotice{
+        display:none;
+    }
+
+    .footer
+    {
+        background-color:rgb(33,33,33);
+        color:white;
+        position:fixed;
+        bottom:0px;
+        font-size: 9px;
+        margin:auto;
+        left:0px;
+        right:0px;
+    }
+
+    .MogatTitle{
+        font-size: 62px;
+        font-weight:bold;
+    }
+
+    .introBody{
+        height: 100%;
+        display:blocks;
+        margin:auto;
+        min-height:460px;
+    }
+
+    .MogatEnt{
+        font-size: 38px;
+        text-align:center;
+        color:white;
+        font-weight:lighter;
+        font-family:"Tahoma";
+        transition: ease-in-out 0.25s;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 14px;
+        margin-left:10px;
+        margin-right:10px;
+        padding-right:20px;
+        padding-left:20px;
+        background-color:rgba(255,255,255,0);
+    }
+
+    .MogatEnt:hover{
+        cursor:pointer;
+        border: 2px solid rgba(255,255,255,1);
+        border-radius: 14px;
+        color:black;
+        background-color:rgba(255,255,255,1);
+    }
+
+    .MogatEnt:active{
+        color:white;
+        background-color:rgba(0,0,0,1);
+    }
+
+    .MogatDes{
+        font-size: 18px;
+        text-align:center;
+        color:white;
+        max-width:1200px;
+    }
+
+
+    .introMain{
+        top:20px;
+        bottom:0px;
+        right:0px;
+        left:0px;
+        background: #8997a4;
+    }
+
+    .MogatLogo
+    {
+        background: url('http://serik.mescomedia.com/img/Logo1.png');
+        background-size:cover;
+        width: 45px;
+        height:90px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .flagwidget
+    {
+        display:flex!important;
+    }
+
+    .flagwidgetLandScape
+    {
+        display:none!important;
+    }
+
+
+.device0{
+    display:none;
+}
+.device1{
+    display:none;
+}
+.device2{
+    display:none;
+}
+.device3{
+    display:none;
+}
+.device4{
+    display:block;
+    position:fixed;
+    bottom:0px;
+    color:black;
+    font-weight:bold;
+    background-color: yellow;
+}
+
+
+}
+
+
+
+
+
 
 
 
@@ -137,94 +899,4 @@
 @keyframes animate {
         from {background-position:0 0;}
         to {background-position: 500px 0;}
-}
-
-
-.shadow{
-    text-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
-}
-
-.boxshadow{
-    box-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
-}
-
-
-
-.introheader {
-    background-color: #58738b;
-    left:0px;
-    right:0px;
-    top:0px;
-    padding: 0px 0px 0px 0px;
-    position: absolute;
-}
-
-
-
-.introDevelopment_of_Innovation {
-  font-family: "Source Sans Pro";
-  color: rgb(255, 255, 255);
-  font-weight: normal;
-  font-variant: small-caps;
-  line-height: 0.714;
-  text-align: center;
-  padding-top : 0.3cm;
-}
-
-/* Large desktops and laptops */
-@media (min-width: 1200px) {
-
-    .introDevelopment_of_Innovation {
-      font-size: 44px;
-    }
-
-    .introheader {
-        max-height:138px;
-    }
-}
-
-/* Landscape tablets and medium desktops */
-@media (min-width: 992px) and (max-width: 1199px) {
-
-.introDevelopment_of_Innovation {
-  font-size: 34px;
-}
-
-.introheader {
-    max-height:108px;
-}
-
-}
-
-/* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
-    .introDevelopment_of_Innovation {
-      font-size: 30px;
-    }
-
-.introheader {
-    max-height:88px;
-}
-}
-
-/* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
-    .introDevelopment_of_Innovation {
-      font-size: 24px;
-    }
-
-.introheader {
-    max-height:68px;
-}
-}
-
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
-.introDevelopment_of_Innovation {
-  font-size: 18px;
-}
-
-.introheader {
-    max-height:50px;
-}
 }

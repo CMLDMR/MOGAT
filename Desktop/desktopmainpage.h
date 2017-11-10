@@ -24,7 +24,8 @@
 #include <Wt/WPushButton.h>
 #include <Wt/WMessageBox.h>
 #include <Wt/WBreak.h>
-#include <Wt/WMenu.h>
+#include <Wt/WLineEdit.h>
+
 
 
 using namespace Wt;
@@ -58,29 +59,7 @@ namespace MainPage {
     };
 
 
-    ///
-    /// \brief intro page's Header Design Code
-    /// This Class include Title, Logo Origin cs...
-    class Header : public WContainerWidget
-    {
-    public:
-        Header(int _w = 0 , int _h = 0 , double _ratio = 1);
 
-        WImage* mEUFlag;
-
-        WHBoxLayout* mLayout;
-
-        bool isVertical() const;
-
-    private:
-
-        double Ratio;
-        int Width;
-        int Height;
-
-        bool mVertical;
-
-    };
 
     ///
     /// \brief The Body class
@@ -88,7 +67,7 @@ namespace MainPage {
     class Body : public WContainerWidget
     {
     public:
-        Body(int _w, int _h, double _r);
+        Body();
 
         WNavigationBar* mNavigationBar;
 
@@ -99,6 +78,10 @@ namespace MainPage {
         WVBoxLayout* mContentLayout;
 
         ContentWidget* mContentWidget;
+
+        void MenuBarForDesktop(WVBoxLayout *layout);
+
+        void MenuBarForMobile(WVBoxLayout *layout);
 
         void f_Mogat();
 
@@ -114,56 +97,8 @@ namespace MainPage {
 
         void f_contact();
 
-        bool isVertical() const;
 
-    private:
-        int Width;
-        int Height;
-        double Ratio;
-
-        bool mVertical;
     };
-
-
-
-
-
-    ///
-    /// \brief Main page's Footer Design Code
-    /// This Class include Legal information about MOGAT, its own documentary,
-    /// application or any others
-    class Footer : public WContainerWidget
-    {
-    public:
-        Footer();
-
-    private:
-        const std::string legalNoitice{"This project has been financed with the support of the European Commission."
-                                        "The authors are solely responsible for this publication and the Commission does not accept responsibility for the use that could be made of the information contained within it."
-                                        "All the content on this website, including but not limited to, the name, the logo, the web pages content (text and images) and any downloadable file, belong to MOGAT. The use of this content is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License."};
-    };
-
-
-    ///
-    /// \brief The FlagWidget class
-    ///
-    class FlagWidget : public WContainerWidget
-    {
-    public:
-        FlagWidget(int _w , int _h , double _r);
-
-        bool isVertical() const;
-
-    private:
-        int Width;
-        int Height;
-        double Ratio;
-
-        bool mVertical;
-    };
-
-
-
 
 
 
