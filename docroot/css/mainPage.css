@@ -1,0 +1,230 @@
+
+.mainheader {
+    max-height:138px;
+    background-color: #58738b;
+    left:0px;
+    right:0px;
+    top:0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    position:relative;
+    box-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
+}
+
+.DesktopMainPage
+{
+    background-image: url("../img/Background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    top:0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+
+
+
+.mainHomeIMG
+{
+    position:relative;
+    top:-15px;
+    width:%80;
+    height:%100;
+    overflow:hidden;
+}
+
+
+.mainfooter {
+    background-color: #303030;
+    position:relative;
+}
+
+
+.desktopMainBody
+{
+    position:relative;
+}
+
+
+.navbar-default {
+    background-image: rgba(0,0,0,0.25);
+    color:#498091;
+}
+
+.mainBtn {
+    color:#498091;
+    font-size: 16px;
+    font-weight:bold;
+    font-family: "Tahoma";
+    background-color: rgba(0,0,0,0.1);
+    transition: ease-in-out .5s;
+    border: 0px;
+    padding-top:0px;
+    padding-bottom:0px;
+    top:0px;
+   }
+
+.mainBtn:hover {
+    color:white;
+    background-color: #3a6a79;
+    cursor:pointer;
+   }
+
+.mainBtn:active {
+    background-color: #1a4a59;
+   }
+
+
+.mainPageTitle
+{
+    font-size: 24px;
+    font-weight:bold;
+    font-family: "Tahoma";
+}
+
+.longText
+{
+    font-family: "Tahoma";
+    text-align:justify;
+}
+
+/////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+.introMain{
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    left:0px;
+    background: #8997a4 url('http://192.168.3.220/img/tumblr_static_bg3.png') repeat 0 0;
+    -webkit-animation: 30s linear 0s normal none infinite animate;
+    -moz-animation: 30s linear 0s normal none infinite animate;
+    -ms-animation: 30s linear 0s normal none infinite animate;
+    -o-animation: 30s linear 0s normal none infinite animate;
+    animation: 30s linear 0s normal none infinite animate;
+}
+
+
+
+@-webkit-keyframes animate {
+        from {background-position:0 0;}
+        to {background-position: 500px 0;}
+}
+
+@-moz-keyframes animate {
+        from {background-position:0 0;}
+        to {background-position: 500px 0;}
+}
+
+@-ms-keyframes animate {
+        from {background-position:0 0;}
+        to {background-position: 500px 0;}
+}
+
+@-o-keyframes animate {
+        from {background-position:0 0;}
+        to {background-position: 500px 0;}
+}
+
+@keyframes animate {
+        from {background-position:0 0;}
+        to {background-position: 500px 0;}
+}
+
+
+.shadow{
+    text-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
+}
+
+.boxshadow{
+    box-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
+}
+
+
+
+.introheader {
+    background-color: #58738b;
+    left:0px;
+    right:0px;
+    top:0px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+}
+
+
+
+.introDevelopment_of_Innovation {
+  font-family: "Source Sans Pro";
+  color: rgb(255, 255, 255);
+  font-weight: normal;
+  font-variant: small-caps;
+  line-height: 0.714;
+  text-align: center;
+  padding-top : 0.3cm;
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+    .introDevelopment_of_Innovation {
+      font-size: 44px;
+    }
+
+    .introheader {
+        max-height:138px;
+    }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+.introDevelopment_of_Innovation {
+  font-size: 34px;
+}
+
+.introheader {
+    max-height:108px;
+}
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .introDevelopment_of_Innovation {
+      font-size: 30px;
+    }
+
+.introheader {
+    max-height:88px;
+}
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .introDevelopment_of_Innovation {
+      font-size: 24px;
+    }
+
+.introheader {
+    max-height:68px;
+}
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+.introDevelopment_of_Innovation {
+  font-size: 18px;
+}
+
+.introheader {
+    max-height:50px;
+}
+}
