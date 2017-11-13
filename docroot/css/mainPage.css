@@ -16,17 +16,14 @@
 
 .header {
     background-color: #58738b;
-    display:block;
 }
 
 
 
 .headerTitle {
-  font-family: "Source Sans Pro";
+  font-family: "Tahoma";
   color: rgb(255, 255, 255);
   font-weight: normal;
-  font-variant: small-caps;
-  top:0px;
 }
 
 
@@ -52,9 +49,28 @@
     }
 
     .header {
+        min-height:77px;
         max-height:77px;
         padding-top:0px;
         margin-top:0px;
+    }
+
+    .euroflag
+    {
+        background: url('http://serik.mescomedia.com/img/euflag.jpg');
+        background-size:cover;
+        width: 107px;
+        height:70px;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .mainContainer{
+        height:100%;
+        width:100%;
+        max-width:900px;
+        align-content:center;
+        display:block;
     }
 
     .MobileFlagWidget{
@@ -124,7 +140,7 @@
         position:fixed;
         bottom:0px;
         font-size: 9px;
-        margin:auto;
+        margin:0px 0px 0px 0px;
         left:0px;
         right:0px;
     }
@@ -153,15 +169,7 @@
         animation: 30s linear 0s normal none infinite animate;
     }
 
-    .euroflag
-    {
-        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
-        background-size:cover;
-        width: 96px;
-        height:77px;
-        background-repeat:   no-repeat;
-        background-position: center center;
-    }
+
 
     .MogatLogo
     {
@@ -182,6 +190,8 @@
     {
         display:none!important;
     }
+
+
 
 
 
@@ -219,7 +229,7 @@
 @media (min-width: 992px) and (max-width: 1199px) {
 
     .headerTitle {
-      font-size: 44px;
+      font-size: 34px;
       max-height: 77px;
       padding-top:0px;
       margin-top:0px;
@@ -234,11 +244,11 @@
     }
 
     .MobileFlagWidget{
-        display: flex!important;
+        display: none!important;
     }
 
     .DesktopFlagWidget{
-        display: none!important;
+        display: flex!important;
     }
 
     .introBody{
@@ -319,10 +329,10 @@
 
     .euroflag
     {
-        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background: url('http://serik.mescomedia.com/img/euflag.jpg');
         background-size:cover;
-        width: 96px;
-        height:77px;
+        width: 107px;
+        height:70px;
         background-repeat:   no-repeat;
         background-position: center center;
     }
@@ -381,12 +391,13 @@
 @media (min-width: 768px) and (max-width: 991px) {
 
     .headerTitle {
-      font-size: 44px;
-      max-height: 77px;
-      padding-top:0px;
-      margin-top:0px;
-      padding-bottom:0px;
-      margin-bottom:0px;
+          font-size: 38px;
+          max-height: 77px;
+          padding-top:0px;
+          margin-top:0px;
+          padding-bottom:0px;
+          margin-bottom:0px;
+          line-height:35px;
     }
 
     .header {
@@ -481,12 +492,13 @@
 
     .euroflag
     {
-        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background: url('http://serik.mescomedia.com/img/euflag.jpg');
         background-size:cover;
-        width: 96px;
-        height:77px;
+        width: 107px;
+        height:70px;
         background-repeat:   no-repeat;
         background-position: center center;
+        overflow:hidden;
     }
 
     .MogatLogo
@@ -544,41 +556,42 @@
 @media (max-width: 767px) {
 
     .headerTitle {
-      font-size: 28px;
-      max-height: 77px;
-      padding-top:0px;
-      margin-top:0px;
-      padding-bottom:0px;
-      margin-bottom:0px;
+        font-size:        28px;
+        font-weight:      normal;
+        padding-top:      0px;
+        margin-top:       0px;
+        padding-bottom:   0px;
+        margin-bottom:    0px;
+        color:            white;
+        max-width:        100px;
+        text-align:       left;
     }
 
     .header {
-        max-height:77px;
-        padding-top:0px;
-        margin-top:0px;
+
     }
 
 
     .MobileFlagWidget{
-        display: flex!important;
+        display: none!important;
         margin:0px 0px 0px 0px !important;
         padding: 0px 0px 0px 0px !important;
         max-height:28px;
     }
 
     .DesktopFlagWidget{
-        display: none!important;
+        display: flex!important;
+        background:red;
     }
 
     .euroflag
     {
-        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background: url('http://serik.mescomedia.com/img/euflag.jpg');
         background-size:cover;
-        width: 68px;
-        height:55px;
+        width: 75px;
+        height:50px;
         background-repeat:   no-repeat;
         background-position: center center;
-        text-align:center;
     }
 
     .MogatLogo
@@ -602,6 +615,12 @@
     .flagwidgetLandScape
     {
         display:flex!important;
+        padding-left:auto;
+        margin-left:auto;
+        position:relative;
+        text-align:center;
+        right:0px!important;
+        position:inherit;
     }
 
 
@@ -673,6 +692,10 @@
         font-weight:bold;
     }
 
+    .langbtn
+    {
+        border-radius:0px;
+    }
 
 
 
@@ -710,45 +733,31 @@
 @media (max-width: 480px) {
 
     .headerTitle {
-      font-size:        14px;
+      font-size:        18px;
+      font-weight:      normal;
       padding-top:      0px;
       margin-top:       0px;
       padding-bottom:   0px;
       margin-bottom:    0px;
+      color:            white;
+      max-width:        100px;
+      text-align:       left;
     }
 
     .header {
-        padding-top:0px;
-        margin-top:0px;
         min-height:60px;
     }
 
-    .MobileFlagWidget{
-        display:    flex!important;
-        margin:     0px 0px 0px 0px !important;
-        padding:    0px 0px 0px 0px !important;
-        position:absolute;
-        text-align:center;
-    }
 
-    .DesktopFlagWidget{
-        display: none!important;
-    }
 
     .euroflag
     {
-        background: url('http://serik.mescomedia.com/img/EurpanCommisionFlag.jpg');
+        background: url('http://serik.mescomedia.com/img/euflag.jpg');
         background-size:cover;
-        width: 71px;
-        height:57px;
+        width: 90px;
+        height:60px;
         background-repeat:   no-repeat;
         background-position: center center;
-        overflow:hidden;
-        text-align:left;
-        margin:auto;
-        left:0px;
-        background-color:red;
-        position:absolute;
     }
 
     .legalNotice{
@@ -836,12 +845,32 @@
 
     .flagwidget
     {
-        display:flex!important;
+        display:block!important;
+        vertical-align:middle;
+        text-align:right;
+        float:left;
     }
 
     .flagwidgetLandScape
     {
         display:none!important;
+    }
+
+    .MobileFlagWidget{
+        display:    flex!important;
+    }
+
+    .mainContainer{
+        width:100%;
+    }
+
+    .DesktopFlagWidget{
+        display: none!important;
+    }
+
+    .langbtn
+    {
+        border-radius:0px;
     }
 
 

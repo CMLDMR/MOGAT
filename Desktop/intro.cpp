@@ -18,38 +18,33 @@ intro::Header::Header()
     setMargin(0,AllSides);
     setPadding(0,AllSides);
 
-    mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
+    auto mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
     mLayout->setContentsMargins(0,0,0,0);
 
     auto MainContainer = mLayout->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Center);
-    MainContainer->setPadding(0,AllSides);
-    MainContainer->setMargin(0,AllSides);
+    MainContainer->setStyleClass("mainContainer");
 
     auto mSubLayout = MainContainer->setLayout(cpp14::make_unique<WHBoxLayout>());
     mSubLayout->setContentsMargins(0,0,0,0);
 
-    auto euroFlag = mSubLayout->addWidget(cpp14::make_unique<WLabel>(""));
+    auto euroFlag = mSubLayout->addWidget(cpp14::make_unique<WLabel>(""),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
     euroFlag->addStyleClass("euroflag");
 
-    auto secondContainer = mSubLayout->addWidget(cpp14::make_unique<WContainerWidget>());
 
-    secondContainer->addStyleClass("headerTitle");
-    secondContainer->setPadding(0,AllSides);
-    secondContainer->setMargin(0,AllSides);
+    auto mTitle = mSubLayout->addWidget(cpp14::make_unique<WText>("Erasmus+"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
+    mTitle->setStyleClass("headerTitle");
 
-    auto mTitleLayout = secondContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
-    mTitleLayout->setContentsMargins(0,0,0,0);
+    mSubLayout->addStretch(1);
 
-    auto mTitle = mTitleLayout->addWidget(cpp14::make_unique<WText>("Development of Innovation"),0,Wt::AlignmentFlag::Center);
+    mSubLayout->addSpacing(20);
 
-    auto flagWidget = mTitleLayout->addWidget(cpp14::make_unique<FlagWidget>(),1,Wt::AlignmentFlag::Justify);
+    auto flagWidget = mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
     flagWidget->setPadding(0,AllSides);
     flagWidget->setMargin(0,AllSides);
-    flagWidget->addStyleClass("flagwidget");
-    flagWidget->setWidth(WLength::Auto);
+    flagWidget->setStyleClass("flagwidget");
 
 
-    auto flagWidgetLandScape = mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(),1,Wt::AlignmentFlag::Justify|AlignmentFlag::Middle);
+    auto flagWidgetLandScape = mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
     flagWidgetLandScape->setPadding(0,AllSides);
     flagWidgetLandScape->setMargin(0,AllSides);
     flagWidgetLandScape->addStyleClass("flagwidgetLandScape");
@@ -142,22 +137,23 @@ intro::FlagWidget::FlagWidget()
     auto mLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
     mLayout->setContentsMargins(0,0,0,0);
 
-    setMaximumSize(WLength::Auto,45);
+//    setMaximumSize(WLength::Auto,45);
 
 
     {
-        auto mobileContainer = mLayout->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Center);
+        auto mobileContainer = mLayout->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Left);
         mobileContainer->addStyleClass("MobileFlagWidget");
 
         auto mflagLayout = mobileContainer->setLayout(cpp14::make_unique<WHBoxLayout>());
 
-        auto container = mflagLayout->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>(),0,AlignmentFlag::Right);
+        auto container = mflagLayout->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>(),0,AlignmentFlag::Left);
 
         auto popupPtr = Wt::cpp14::make_unique<Wt::WPopupMenu>();
         auto popup = popupPtr.get();
 
 
         Wt::WPushButton *button = container->addWidget(Wt::cpp14::make_unique<Wt::WPushButton>("Turkish"));
+        button->addStyleClass("langbtn");
         button->setMenu(std::move(popupPtr));
 
 

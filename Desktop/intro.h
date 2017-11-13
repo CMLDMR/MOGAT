@@ -59,8 +59,6 @@ namespace intro {
     public:
         Header();
 
-        WHBoxLayout* mLayout;
-
     };
 
 
