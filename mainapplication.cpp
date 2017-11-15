@@ -20,6 +20,8 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 
     Wt::WApplication::instance()->setBodyClass("introMain");
 
+//    std::cout << "instance id: " << Wt::WApplication::instance()->id() << std::endl;
+
 //    root()->addStyleClass("borderLine");
 
 

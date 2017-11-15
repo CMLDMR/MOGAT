@@ -30,8 +30,8 @@ intro::Header::Header()
     auto euroFlag = mSubLayout->addWidget(cpp14::make_unique<WLabel>(""),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
     euroFlag->addStyleClass("euroflag");
 
-
     auto mTitle = mSubLayout->addWidget(cpp14::make_unique<WText>("Erasmus+"),0,Wt::AlignmentFlag::Center|AlignmentFlag::Middle);
+
     mTitle->setStyleClass("headerTitle");
 
     mSubLayout->addStretch(1);
@@ -39,15 +39,22 @@ intro::Header::Header()
     mSubLayout->addSpacing(20);
 
     auto flagWidget = mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
+
     flagWidget->setPadding(0,AllSides);
+
     flagWidget->setMargin(0,AllSides);
+
     flagWidget->setStyleClass("flagwidget");
 
 
     auto flagWidgetLandScape = mSubLayout->addWidget(cpp14::make_unique<FlagWidget>(),0,Wt::AlignmentFlag::Right|AlignmentFlag::Middle);
+
     flagWidgetLandScape->setPadding(0,AllSides);
+
     flagWidgetLandScape->setMargin(0,AllSides);
+
     flagWidgetLandScape->addStyleClass("flagwidgetLandScape");
+
     flagWidgetLandScape->setWidth(WLength::Auto);
 }
 
@@ -113,7 +120,7 @@ void intro::Body::eEnterClick()
 intro::Footer::Footer()
 {
 
-
+    setId("footerid");
     setContentAlignment(AlignmentFlag::Center);
     setStyleClass("footer");
     auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
@@ -127,6 +134,19 @@ intro::Footer::Footer()
 
     auto text2 = mLayout->addWidget(cpp14::make_unique<WText>("© 2017 MOGAT • powered by Wt & Qt & github"),0,Wt::AlignmentFlag::Center);
 //    text2->setStyleClass("introcopyRight");
+
+//    this->doJavaScript("var rect = document.getElementById(\"footerid\").getBoundingClientRect();"
+//                       "console.log(rect.top, rect.right, rect.bottom, rect.left, rect.width, rect.height );"
+//                       ""
+//                       "var w = window.innerWidth"
+//                       "|| document.documentElement.clientWidth"
+//                       "|| document.body.clientWidth;"
+//                       "var h = window.innerHeight"
+//                       "|| document.documentElement.clientHeight"
+//                       "|| document.body.clientHeight;"
+//                       "console.log(\"width: \" + w + \" Height: \" + h)");
+
+
 }
 
 

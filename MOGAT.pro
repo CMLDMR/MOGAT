@@ -18,7 +18,11 @@ SOURCES += main.cpp \
     mainapplication.cpp \
     Desktop/intro.cpp \
     singleton.cpp \
-    Desktop/desktopmainpage.cpp
+    Desktop/desktopmainpage.cpp \
+    Desktop/aboutpagewidget.cpp \
+    Desktop/objectivepagewidget.cpp \
+    Desktop/scopepagewidget.cpp \
+    Desktop/homepagewidget.cpp
 
 
 
@@ -41,7 +45,11 @@ HEADERS += \
     mainapplication.h \
     Desktop/intro.h \
     singleton.h \
-    Desktop/desktopmainpage.h
+    Desktop/desktopmainpage.h \
+    Desktop/aboutpagewidget.h \
+    Desktop/objectivepagewidget.h \
+    Desktop/scopepagewidget.h \
+    Desktop/homepagewidget.h
 
 
 

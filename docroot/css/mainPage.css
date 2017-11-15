@@ -4,6 +4,12 @@
 }
 
 
+
+.navfont{
+    font-size: 18px;
+}
+
+
 .shadow{
     text-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
 }
@@ -12,6 +18,22 @@
     box-shadow: 0px 3px 5px rgba(35, 31, 32, 0.35);
 }
 
+.Wt-icon {
+  margin-right: 4px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  line-height: 14px;
+  vertical-align: text-top;
+}
+
+
+.navbar-brand
+{
+    font-size:26px;
+}
 
 
 .header {
@@ -34,6 +56,69 @@
 }
 
 
+/*ROOT*/
+/* Home Sayfasında Root Background*/
+.rootBody{
+    top:    0px;
+    bottom: 0px;
+    right:  0px;
+    left:   0px;
+    background: url('http://serik.mescomedia.com/img/Background.jpg') repeat 0 0;
+    background-size:cover;
+}
+
+/*ROOT END*/
+
+
+/*HOME*/
+.homeimg
+{
+    width:100%;
+    overflow:hidden;
+}
+
+.outComes
+{
+    font-size:28px;
+    font-weight:bold;
+    text-shadow:2px 2px 10px #999999;
+    text-align:justify;
+}
+
+.homeText
+{
+    font-size:16px;
+    font-weight:normal;
+    text-shadow:2px 2px 10px #dddddd;
+}
+
+.contentStack
+{
+/*    height:100%!important;*/
+/*    min-height:100%!important;*/
+    position: relative;
+    border: 1px solid black;
+    display:block;
+}
+/*HOME End */
+
+
+
+/*FOOTER*/
+
+.footer
+{
+    background-color:rgb(33,33,33);
+    color:white;
+    position:fixed;
+    bottom:-3px;
+    font-size: 12px;
+    margin:0px 0px 0px 0px;
+    left:0px;
+    right:0px;
+}
+
+/*FOOTER*/
 
 
 /* Large desktops and laptops */
@@ -133,17 +218,7 @@
     }
 
 
-    .footer
-    {
-        background-color:rgb(33,33,33);
-        color:white;
-        position:fixed;
-        bottom:0px;
-        font-size: 9px;
-        margin:0px 0px 0px 0px;
-        left:0px;
-        right:0px;
-    }
+
 
     .mogatSubTitle
     {
@@ -271,17 +346,7 @@
     }
 
 
-    .footer
-    {
-        background-color:rgb(33,33,33);
-        color:white;
-        position:fixed;
-        bottom:0px;
-        font-size: 9px;
-        margin:auto;
-        left:0px;
-        right:0px;
-    }
+
 
     .mogatSubTitle
     {
@@ -358,26 +423,26 @@
     }
 
 
-.device0{
-    display:none;
-}
-.device1{
-    display:block;
-    position:fixed;
-    bottom:0px;
-    color:white;
-    font-weight:bold;
-    background-color: green;
-}
-.device2{
-    display:none;
-}
-.device3{
-    display:none;
-}
-.device4{
-    display:none;
-}
+    .device0{
+        display:none;
+    }
+    .device1{
+        display:block;
+        position:fixed;
+        bottom:0px;
+        color:white;
+        font-weight:bold;
+        background-color: green;
+    }
+    .device2{
+        display:none;
+    }
+    .device3{
+        display:none;
+    }
+    .device4{
+        display:none;
+    }
 
 
 }
@@ -434,17 +499,6 @@
     }
 
 
-    .footer
-    {
-        background-color:rgb(33,33,33);
-        color:white;
-        position:fixed;
-        bottom:0px;
-        font-size: 10px;
-        margin:auto;
-        left:0px;
-        right:0px;
-    }
 
     .mogatSubTitle
     {
@@ -522,26 +576,26 @@
     }
 
 
-.device0{
-    display:none;
-}
-.device1{
-    display:none;
-}
-.device2{
-    display:block;
-    position:fixed;
-    bottom:0px;
-    color:white;
-    font-weight:bold;
-    background-color: blue;
-}
-.device3{
-    display:none;
-}
-.device4{
-    display:none;
-}
+    .device0{
+        display:none;
+    }
+    .device1{
+        display:none;
+    }
+    .device2{
+        display:block;
+        position:fixed;
+        bottom:0px;
+        color:white;
+        font-weight:bold;
+        background-color: blue;
+    }
+    .device3{
+        display:none;
+    }
+    .device4{
+        display:none;
+    }
 
 
 }
@@ -581,7 +635,6 @@
 
     .DesktopFlagWidget{
         display: flex!important;
-        background:red;
     }
 
     .euroflag
@@ -629,19 +682,7 @@
     }
 
 
-    .footer
-    {
-        background-color:rgb(33,33,33);
-        color:white;
-        position:fixed;
-        bottom:0px;
-        font-size: 9px;
-        margin:auto;
-        left:0px;
-        right:0px;
-        padding: 0px 0px 0px 0px;
-        margin: 0px 0px 0px 0px;
-    }
+
 
     .mogatSubTitle
     {
@@ -750,6 +791,9 @@
 
 
 
+
+
+
     .euroflag
     {
         background: url('http://serik.mescomedia.com/img/euflag.jpg');
@@ -764,17 +808,7 @@
         display:none;
     }
 
-    .footer
-    {
-        background-color:rgb(33,33,33);
-        color:white;
-        position:fixed;
-        bottom:0px;
-        font-size: 9px;
-        margin:auto;
-        left:0px;
-        right:0px;
-    }
+
 
     .MogatTitle{
         font-size: 62px;
@@ -874,26 +908,26 @@
     }
 
 
-.device0{
-    display:none;
-}
-.device1{
-    display:none;
-}
-.device2{
-    display:none;
-}
-.device3{
-    display:none;
-}
-.device4{
-    display:block;
-    position:fixed;
-    bottom:0px;
-    color:black;
-    font-weight:bold;
-    background-color: yellow;
-}
+    .device0{
+        display:none;
+    }
+    .device1{
+        display:none;
+    }
+    .device2{
+        display:none;
+    }
+    .device3{
+        display:none;
+    }
+    .device4{
+        display:block;
+        position:fixed;
+        bottom:0px;
+        color:black;
+        font-weight:bold;
+        background-color: yellow;
+    }
 
 
 }

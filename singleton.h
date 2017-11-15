@@ -4,6 +4,7 @@
 #include <QtCore/qglobal.h>
 
 #include <Wt/WContainerWidget>
+#include <Wt/WApplication>
 #include <Wt/WText>
 
 #include <iostream>

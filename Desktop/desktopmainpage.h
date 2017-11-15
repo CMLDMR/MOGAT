@@ -26,7 +26,10 @@
 #include <Wt/WBreak.h>
 #include <Wt/WLineEdit.h>
 
-
+class AboutPageWidget;
+class ObjectivePageWidget;
+class ScopePageWidget;
+class HomePageWidget;
 
 using namespace Wt;
 
@@ -42,6 +45,7 @@ namespace MainPage {
 
 
 
+
     ///
     /// \brief The DesktopMainPage class
     /// Main Page Container Class.
@@ -49,6 +53,7 @@ namespace MainPage {
     {
     public:
         DesktopMainPage(int _w , int _h , double _r );
+
 
         WVBoxLayout* mLayout;
 
@@ -85,6 +90,8 @@ namespace MainPage {
 
         void f_Mogat();
 
+        void f_Scope();
+
         void f_objective();
 
         void f_resource();
@@ -96,6 +103,11 @@ namespace MainPage {
         void f_About();
 
         void f_contact();
+
+        void f_relocateFooter();
+
+
+        Wt::WStackedWidget *contentsStack;
 
 
     };

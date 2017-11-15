@@ -3,10 +3,32 @@
 
 #include <QtCore/qglobal.h>
 
-class AboutPageWidget : public WContainerPage
+#include <Wt/WContainerWidget.h>
+#include <Wt/WWidget.h>
+#include <Wt/WInteractWidget.h>
+
+#include <Wt/WHBoxLayout.h>
+#include <Wt/WVBoxLayout.h>
+#include <Wt/WText.h>
+
+#include <memory>
+
+
+
+using namespace Wt;
+
+
+
+class AboutPageWidget : public WContainerWidget
 {
 public:
     AboutPageWidget();
+    ~AboutPageWidget();
+
+//    void operator()(AboutPageWidget* p) {
+//        delete p;
+//    }
+
 };
 
 #endif // ABOUTPAGEWIDGET_H
