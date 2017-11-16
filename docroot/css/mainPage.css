@@ -65,6 +65,7 @@
     left:   0px;
     background: url('http://serik.mescomedia.com/img/Background.jpg') repeat 0 0;
     background-size:cover;
+    background-attachment: fixed;
 }
 
 /*ROOT END*/
@@ -118,6 +119,24 @@
     font-size:16px;
     font-weight:normal;
     text-shadow:2px 2px 10px #dddddd;
+}
+
+.objectives
+{
+    text-align:justify;
+}
+
+.objectivesimg
+{
+    width:100%;
+    height:auto;
+    display:block;
+    max-width:450px;
+}
+
+.abouttext
+{
+    text-align:justify;
 }
 
 .contentStack
