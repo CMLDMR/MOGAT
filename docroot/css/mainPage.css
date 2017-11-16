@@ -85,6 +85,34 @@
     text-align:justify;
 }
 
+.outcomesproject
+{
+    width:300px;
+    height:250px;
+    overflow:hidden;
+    min-width:300px;
+    display:block;
+    text-align:center;
+}
+
+.scopeproject
+{
+    width:100%;
+    overflow:hidden;
+    max-width:600px;
+    display:block;
+}
+
+.outcomesprojectmobile
+{
+    width:300px;
+    height:250px;
+    overflow:hidden;
+    min-width:300px;
+    display:none;
+    text-align:center;
+}
+
 .homeText
 {
     font-size:16px;
@@ -138,6 +166,11 @@
         max-height:77px;
         padding-top:0px;
         margin-top:0px;
+    }
+
+    .homeText
+    {
+        text-align:justify;
     }
 
     .euroflag
@@ -318,6 +351,11 @@
         margin-top:0px;
     }
 
+    .homeText
+    {
+        text-align:justify;
+    }
+
     .MobileFlagWidget{
         display: none!important;
     }
@@ -470,6 +508,25 @@
         padding-top:0px;
         margin-top:0px;
     }
+
+/*HOME PAGE*/
+
+.outcomesproject
+{
+    display:none;
+}
+
+.outcomesprojectmobile
+{
+    display:block;
+}
+
+.homeText
+{
+    text-align:justify;
+}
+
+/***********/
 
     .MobileFlagWidget{
         display: flex!important;
@@ -624,6 +681,26 @@
     .header {
 
     }
+
+
+/*HOME PAGE*/
+
+.outcomesproject
+{
+    display:none;
+}
+
+.outcomesprojectmobile
+{
+    display:block;
+}
+
+.homeText
+{
+    text-align:justify;
+}
+
+/***********/
 
 
     .MobileFlagWidget{
@@ -790,6 +867,24 @@
     }
 
 
+/*HOME PAGE*/
+
+.outcomesproject
+{
+    display:none;
+}
+
+.outcomesprojectmobile
+{
+    display:block;
+}
+
+.homeText
+{
+    text-align:justify;
+}
+
+/***********/
 
 
 

@@ -246,8 +246,8 @@ void MainPage::Body::f_relocateFooter()
                         "document.getElementById(\"footerid\").style.position = \"relative\";"
                         "}else{"
                         "console.log(\"set position fixed bottom:0px\");"
-                        "document.getElementById(\"footerid\").style.bottom = \"-3px\";"
-                        "document.getElementById(\"footerid\").style.position = \"fixed\";"
+//                        "document.getElementById(\"footerid\").style.bottom = \"-3px\";"
+                        "document.getElementById(\"footerid\").style.position = \"relative\";"
                         "}");
 }
 

@@ -11,6 +11,8 @@
 #include <Wt/WHBoxLayout.h>
 #include <Wt/WVBoxLayout.h>
 #include <Wt/WText.h>
+#include <Wt/WLink.h>
+#include <Wt/WImage.h>
 
 #include <memory>
 
