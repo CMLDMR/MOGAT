@@ -1,0 +1,4 @@
+#ifndef MONGOHEADERS_H
+#define MONGOHEADERS_H
+
+#endif // MONGOHEADERS_H
