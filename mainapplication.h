@@ -11,6 +11,8 @@
 #include <Wt/WBootstrapTheme>
 
 
+#include <mongocxx/client.hpp>
+#include <mongocxx/instance.hpp>
 
 
 #include "singleton.h"

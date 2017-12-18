@@ -6,7 +6,7 @@
 
 
 .navfont{
-    font-size: 18px;
+    font-size: 14px;
 }
 
 
@@ -148,6 +148,18 @@
     display:block;
 }
 /*HOME End */
+
+
+
+/*BODY*/
+
+.contentBody
+{
+    margin:auto;
+}
+
+
+/*********************/
 
 
 

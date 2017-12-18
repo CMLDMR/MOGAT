@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     Desktop/aboutpagewidget.cpp \
     Desktop/objectivepagewidget.cpp \
     Desktop/scopepagewidget.cpp \
-    Desktop/homepagewidget.cpp
+    Desktop/homepagewidget.cpp \
+    Desktop/userloginwidget.cpp
 
 
 
@@ -49,7 +50,10 @@ HEADERS += \
     Desktop/aboutpagewidget.h \
     Desktop/objectivepagewidget.h \
     Desktop/scopepagewidget.h \
-    Desktop/homepagewidget.h
+    Desktop/homepagewidget.h \
+    Desktop/userloginwidget.h \
+    db.h \
+    mongoheaders.h
 
 
 
@@ -63,4 +67,30 @@ DEPENDPATH += $$PWD/../../Server/WebServer/Wt-4.0.0-msvs2015-Windows-x64-SDK/inc
 
 DISTFILES += \
     approot/css/mainPage.css \
-    docroot/css/mainPage.css
+    docroot/css/mainPage.css \
+    docroot/script/Script.js
+
+
+
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/ -lbsoncxx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lbsoncxxd
+else:unix: LIBS += -L$$PWD/lib/ -lbsoncxx
+
+INCLUDEPATH += $$PWD/include/bsoncxx/v_noabi
+DEPENDPATH += $$PWD/include/bsoncxx/v_noabi
+
+INCLUDEPATH += $$PWD/boost
+DEPENDPATH += $$PWD/boost
+
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/ -lmongocxx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lmongocxxd
+else:unix: LIBS += -L$$PWD/lib/ -lmongocxx
+
+INCLUDEPATH += $$PWD/include/mongocxx/v_noabi
+DEPENDPATH += $$PWD/include/mongocxx/v_noabi

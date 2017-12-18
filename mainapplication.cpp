@@ -17,6 +17,7 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
     WApplication::useStyleSheet(WLink("css/mainPage.css"));
 
     Wt::WApplication::instance()->useStyleSheet("resources/themes/bootstrap/3/bootstrap-theme.min.css");
+    Wt::WApplication::instance()->require("script/Script.js");
 
     Wt::WApplication::instance()->setBodyClass("introMain");
 

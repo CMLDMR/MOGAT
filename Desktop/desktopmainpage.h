@@ -26,24 +26,25 @@
 #include <Wt/WBreak.h>
 #include <Wt/WLineEdit.h>
 
+#include <iostream>
+
+#include <mongocxx/client.hpp>
+#include <mongocxx/exception/exception.hpp>
+
 class AboutPageWidget;
 class ObjectivePageWidget;
 class ScopePageWidget;
 class HomePageWidget;
+class UserLoginWidget;
 
 using namespace Wt;
 
 namespace MainPage {
 
-
     class FlagWidget;
     class Header;
     class Footer;
     class ContentWidget;
-
-
-
-
 
 
     ///
@@ -61,6 +62,10 @@ namespace MainPage {
         int Width;
         int Height;
         double Ratio;
+
+        mongocxx::client* mClient;
+        mongocxx::database db;
+
     };
 
 
@@ -72,7 +77,7 @@ namespace MainPage {
     class Body : public WContainerWidget
     {
     public:
-        Body();
+        Body(mongocxx::database* _db);
 
         WNavigationBar* mNavigationBar;
 
@@ -106,8 +111,11 @@ namespace MainPage {
 
         void f_relocateFooter();
 
+        void f_login();
 
         Wt::WStackedWidget *contentsStack;
+
+        mongocxx::database* db;
 
 
     };
@@ -119,6 +127,9 @@ namespace MainPage {
     public:
         ContentWidget();
     };
+
+
+
 
 
 }

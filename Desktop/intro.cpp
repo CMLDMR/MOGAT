@@ -127,10 +127,22 @@ intro::Footer::Footer()
     auto mogatTitleText = mLayout->addWidget(cpp14::make_unique<WText>("Mogat"),0,Wt::AlignmentFlag::Center);
     mogatTitleText->addStyleClass("mogatSubTitle");
 
-    auto text = mLayout->addWidget(cpp14::make_unique<WText>(legalNoitice),0,Wt::AlignmentFlag::Center);
+    {
+        auto container = mLayout->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Center);
 
-    text->setMaximumSize(900,WLength::Auto);
-    text->addStyleClass("legalNotice");
+        auto text = container->addWidget(cpp14::make_unique<WText>(legalNoitice));
+
+        container->setContentAlignment(AlignmentFlag::Justify);
+
+        text->setTextAlignment(AlignmentFlag::Justify);
+
+        text->setMaximumSize(1280,WLength::Auto);
+        text->addStyleClass("legalNotice");
+
+
+    }
+
+
 
     auto text2 = mLayout->addWidget(cpp14::make_unique<WText>("© 2017 MOGAT • powered by Wt & Qt & github"),0,Wt::AlignmentFlag::Center);
 //    text2->setStyleClass("introcopyRight");
