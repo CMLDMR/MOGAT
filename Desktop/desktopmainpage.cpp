@@ -303,25 +303,7 @@ void MainPage::Body::f_contact()
 
 void MainPage::Body::f_relocateFooter()
 {
-    this->doJavaScript("var rect = document.getElementById(\"footerid\").getBoundingClientRect();"
-                        "console.log(rect.top, rect.right, rect.bottom, rect.left, rect.width, rect.height );"
-                        ""
-                        "var w = window.innerWidth"
-                        "|| document.documentElement.clientWidth"
-                        "|| document.body.clientWidth;"
-                        "var h = window.innerHeight"
-                        "|| document.documentElement.clientHeight"
-                        "|| document.body.clientHeight;"
-                        "console.log(\"width: \" + w + \" Height: \" + h);"
-                        "if( rect.bottom + 3 < h )"
-                        "{"
-                        "console.log(\"set position relative\");"
-                        "document.getElementById(\"footerid\").style.position = \"relative\";"
-                        "}else{"
-                        "console.log(\"set position fixed bottom:0px\");"
-//                        "document.getElementById(\"footerid\").style.bottom = \"-3px\";"
-                        "document.getElementById(\"footerid\").style.position = \"relative\";"
-                        "}");
+    this->doJavaScript("relocationFooter();");
 }
 
 void MainPage::Body::f_login()
@@ -331,7 +313,6 @@ void MainPage::Body::f_login()
 
     mContentWidget->setContentAlignment( AlignmentFlag::Center );
 
-    auto title = mContentWidget->addWidget(cpp14::make_unique<WText>("<h3>Authorized Login</h3>"));
 
     auto content = mContentWidget->addWidget(cpp14::make_unique<Admin::UserLoginWidget>(db));
 

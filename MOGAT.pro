@@ -1,4 +1,9 @@
+QT += core
+#QT += gui
 
+#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += no_keywords
 
 CONFIG += c++14 console
 CONFIG -= app_bundle

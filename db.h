@@ -13,14 +13,15 @@ namespace DB {
         static std::string clickCount{"readCount"};
         static std::string icon{"icon"};
         static std::string published{"published"};
+        static std::string Newsoid{"_id"};
+
         namespace publishState {
-        static bool ON{true};
-        static bool OFF{false};
+            static bool ON{true};
+            static bool OFF{false};
         }
 
-        static std::string author{"author"};
+        static std::string authoroid{"authoroid"};
         static std::string publishedDate{"date"};
-
         static std::string collection{"News"};
     }
 
@@ -30,7 +31,11 @@ namespace DB {
         static std::string password{"pwd"};
         static std::string name{"name"};
         static std::string collection{"Users"};
+        static std::string oid{"_id"};
     }
+
+
+
 }
 
 #endif // DB_H

@@ -47,6 +47,7 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 void MainApplication::initMogat()
 {
     root()->clear();
+    root()->setId("RootID");
     root()->addWidget(Wt::cpp14::make_unique<Singleton>(this->viewPortWidth,this->viewPortHeight,viewPortPixelRatio));
 }
 

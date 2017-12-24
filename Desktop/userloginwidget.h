@@ -2,6 +2,11 @@
 #define USERLOGINWIDGET_H
 
 #include <QtCore/qglobal.h>
+#include <QImage>
+#include <QFile>
+#include <QByteArray>
+#include <QDir>
+#include <QFileInfo>
 
 #include <Wt/WContainerWidget.h>
 #include <Wt/WWidget.h>
@@ -16,7 +21,20 @@
 #include <Wt/WLineEdit.h>
 #include <Wt/WPushButton.h>
 #include <Wt/WTimer.h>
+#include <Wt/WStackedWidget.h>
+#include <Wt/WSignal.h>
+#include <Wt/WTextEdit.h>
 
+#include <Wt/WTable.h>
+#include <Wt/WTableCell.h>
+#include <Wt/WStandardItem.h>
+#include <Wt/WStandardItemModel.h>
+#include <Wt/WStringListModel.h>
+#include <Wt/WTableView.h>
+#include <Wt/WItemDelegate.h>
+#include <Wt/WCheckBox.h>
+#include <Wt/WFileUpload.h>
+#include <Wt/WProgressBar.h>
 
 #include "mongoheaders.h"
 
@@ -29,6 +47,8 @@ namespace Admin {
 
     class ControlPanel;
     class NewsContent;
+
+    static bsoncxx::oid useroid;
 
 
     class UserLoginWidget : public WContainerWidget
@@ -58,6 +78,59 @@ namespace Admin {
     {
         public:
         ControlPanel(mongocxx::database* _db);
+
+        WHBoxLayout* mLayout;
+        std::unique_ptr<WContainerWidget> mContainer;
+
+        mongocxx::database* db;
+
+        WStackedWidget* mContentStack;
+
+
+        class HaberPanel : public WContainerWidget
+        {
+            public:
+            HaberPanel(mongocxx::database *_db);
+            mongocxx::database* db;
+
+            WVBoxLayout* mLayout;
+            WContainerWidget* mContainer;
+            WContainerWidget* mDetailContainer;
+            WVBoxLayout* Layout;
+            Signal<> backControlPanel;
+
+            Wt::WTextEdit *edit;
+            WLineEdit* mTitle;
+
+
+            WContainerWidget* haberListWidget;
+            std::vector<bsoncxx::document::view> haberList;
+
+
+            void refreshList(WContainerWidget* itemWidget);
+
+        private:
+            std::vector<bsoncxx::document::view> getHaberList();
+            bool enableNews(bool enable,bsoncxx::oid oid, bsoncxx::document::view doc);
+            bool disableNews(bsoncxx::oid oid, bsoncxx::document::view doc);
+
+
+        };
+
+
+
+
+        class AnouncePanel : public WContainerWidget
+        {
+            public:
+            AnouncePanel(mongocxx::database *_db);
+            mongocxx::database* db;
+
+            WVBoxLayout* mLayout;
+            WContainerWidget* mContainer;
+            WVBoxLayout* Layout;
+            Signal<> backControlPanel;
+        };
     };
 
 
