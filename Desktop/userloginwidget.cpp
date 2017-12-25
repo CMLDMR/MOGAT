@@ -82,6 +82,8 @@ void Admin::UserLoginWidget::login()
         doc.append(kvp(DB::User::password,bsoncxx::types::b_utf8{password->text().toUTF8().c_str()}));
     } catch (bsoncxx::exception &e) {
         std::cout << "bson error: " << e.what() << std::endl;
+        mContainer->addWidget(cpp14::make_unique<WText>("bson CXX error: username : password"));
+        return;
     }
 
     auto col = db->collection(DB::User::collection);
@@ -95,7 +97,7 @@ void Admin::UserLoginWidget::login()
             {
                 userloginFail->setText(WString::fromUTF8(result.value().view()[DB::User::name.c_str()].get_utf8().value.to_string().c_str()));
                 useroid = result.value().view()[DB::User::oid.c_str()].get_oid().value;
-//                std::cout<< "USER OID : " << useroid.to_string() << std::endl;
+                std::cout<< "USER OID : " << useroid.to_string() << std::endl;
                 mContainer->clear();
                 mContainer->addWidget(cpp14::make_unique<ControlPanel>(db));
                 mContainer->setMargin(WLength::Auto,AllSides);
@@ -159,7 +161,7 @@ Admin::ControlPanel::ControlPanel(mongocxx::database *_db)
 
         HaberButton->clicked().connect([=](){
             mContentStack->setCurrentIndex(1);
-            doJavaScript("fooreposition();");
+//            doJavaScript("fooreposition();");
         });
 
         AnounceButton->clicked().connect([=](){
@@ -173,9 +175,9 @@ Admin::ControlPanel::ControlPanel(mongocxx::database *_db)
         auto haberler = container.get()->addWidget(cpp14::make_unique<HaberPanel>(db));
         mContentStack->insertWidget(1,std::move(container));
 
-        haberler->backControlPanel.connect([=](){
-            mContentStack->setCurrentIndex(0);
-        });
+//        haberler->backControlPanel.connect([=](){
+//            mContentStack->setCurrentIndex(0);
+//        });
     }
 
     {
@@ -183,21 +185,21 @@ Admin::ControlPanel::ControlPanel(mongocxx::database *_db)
         auto anounce = container.get()->addWidget(cpp14::make_unique<AnouncePanel>(db));
         mContentStack->insertWidget(2,std::move(container));
 
-        anounce->backControlPanel.connect([=](){
-            mContentStack->setCurrentIndex(0);
-        });
+//        anounce->backControlPanel.connect([=](){
+//            mContentStack->setCurrentIndex(0);
+//        });
     }
 
     mContentStack->setCurrentIndex(0);
 
-//    mContentStack->addStyleClass("borderLine");
 
 
 
 }
 
 Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
-    :db(_db)
+    :WContainerWidget(),
+    db(_db)
 {
 
 //    addStyleClass("borderLine");
@@ -216,11 +218,8 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
 
 
     {
-
         haberListWidget = Layout->addWidget(cpp14::make_unique<WContainerWidget>());
-
         this->refreshList(haberListWidget);
-
     }
 
 
@@ -234,9 +233,9 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
 
     {
         auto backbutton = Layout->addWidget(cpp14::make_unique<WPushButton>("Back"));
-        backbutton->clicked().connect([=](){
-            backControlPanel.emit();
-        });
+//        backbutton->clicked().connect([=](){
+//            backControlPanel.emit();
+//        });
     }
 
     mDetailContainer = hLayout->addWidget(cpp14::make_unique<WContainerWidget>(),1,AlignmentFlag::Justify);
@@ -332,6 +331,13 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
             mTitle = hlayout->addWidget(cpp14::make_unique<WLineEdit>(),0,AlignmentFlag::Center|AlignmentFlag::Middle);
             mTitle->setPlaceholderText("News Title");
 
+            {
+                auto _layout = vLayout->addLayout(cpp14::make_unique<WHBoxLayout>());
+                auto tetx = _layout->addWidget(cpp14::make_unique<WText>("Publish"));
+                mPublished = _layout->addWidget(cpp14::make_unique<WCheckBox>());
+                _layout->addStretch(1);
+            }
+
             auto container = vLayout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
             edit = container->addWidget(Wt::cpp14::make_unique<Wt::WTextEdit>());
             edit->setHeight(450);
@@ -362,6 +368,7 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
                     doc.append(kvp(DB::News::clickCount,bsoncxx::types::b_int64{0}));
                     doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{DB::News::publishState::OFF}));
                     doc.append(kvp(DB::News::authoroid,useroid));
+                    doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
                 } catch (bsoncxx::exception &e) {
                     std::cout << "bson cxx : " << e.what() << std::endl;
                 }
@@ -379,8 +386,12 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
                 }
 
             });
+
+            vLayout->addStretch(1);
         }
     }
+
+    SelectedNewsIndex.connect(this,&HaberPanel::NewsDetail);
 
 }
 
@@ -388,68 +399,77 @@ void Admin::ControlPanel::HaberPanel::refreshList(WContainerWidget *itemWidget)
 {
     itemWidget->clear();
 
-    auto itemLayout = itemWidget->setLayout(cpp14::make_unique<WVBoxLayout>());
+    auto mainContainer = itemWidget->addWidget(cpp14::make_unique<WContainerWidget>());
+
+    auto itemLayout = mainContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
 
     haberList = this->getHaberList();
 
-    int i = 0;
-    for( i = 0 ; i < haberList.size() ; i++ )
+    for(int i = 0 ; i < haberList.size() ; i++ )
     {
-        auto doc = haberList.at(i);
+        auto doc = haberList[i];
+
         auto container = itemLayout->addWidget(cpp14::make_unique<WContainerWidget>());
         container->addStyleClass("borderLine");
         container->setContentAlignment(AlignmentFlag::Center);
         auto layout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
-        layout->addWidget(cpp14::make_unique<WText>(doc[DB::News::title].get_utf8().value.to_string().c_str()));
-
-        auto button = layout->addWidget(cpp14::make_unique<WPushButton>("Enable"));
-
-        if( doc[DB::News::published].get_bool().value == DB::News::publishState::OFF )
-        {
-            button->setText("Enable");
-        }else{
-            button->setText("Disable");
-        }
+        layout->addWidget(cpp14::make_unique<WText>(doc.title));
 
 
-        button->clicked().connect([=](){
-            if(button->text() == "Disable" )
-            {
-                if( this->enableNews(false,doc[DB::News::Newsoid].get_oid().value,doc) )
-                {
-                    button->setText("Enable");
-                    std::cout << "Enable: " << doc[DB::News::published].get_bool().value;
-                    haberList = this->getHaberList();
-                    auto doc_ = this->haberList.at(i);
-                    std::cout << "Enable: " << doc[DB::News::published].get_bool().value;
-                }
-            }else{
-                if( this->enableNews(true,doc[DB::News::Newsoid].get_oid().value,doc) )
-                {
-                    button->setText("Disable");
-                    std::cout << "Disable: " << doc[DB::News::published].get_bool().value;
-                    haberList = this->getHaberList();
-                    auto doc_ = this->haberList.at(i);
-                    std::cout << "Disable: " << doc[DB::News::published].get_bool().value;
-                }
-            }
-
-
+        container->clicked().connect([=](){
+            std::cout << "Bind Oid " << i/*<< doc[DB::News::Newsoid].get_oid().value.to_string()*/ << std::endl;
+            SelectedNewsIndex.emit(i);
         });
-
-
 
 
     }
 }
 
-std::vector<bsoncxx::document::view> Admin::ControlPanel::HaberPanel::getHaberList()
+void Admin::ControlPanel::HaberPanel::NewsDetail(int index)
+{
+    auto doc = haberList[index];
+    std::cout << "News Detail : "<<index << doc.oid << std::endl;
+
+    using bsoncxx::builder::basic::kvp;
+    using bsoncxx::builder::basic::make_document;
+
+    bsoncxx::builder::basic::document filter{};
+
+    try {
+        filter.append(kvp(DB::News::Newsoid,bsoncxx::oid{doc.oid}));
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Error Parsing " << e.what() << std::endl;
+    }
+
+    auto col = db->collection(DB::News::collection);
+
+    try {
+        mongocxx::stdx::optional<bsoncxx::document::value> res = col.find_one(filter.view());
+
+        if( res )
+        {
+            edit->setText(WString(res.get().view()[DB::News::html].get_utf8().value.to_string().c_str()));
+            mTitle->setText(WString(res.get().view()[DB::News::title].get_utf8().value.to_string().c_str()));
+            mPublished->setChecked(res.get().view()[DB::News::published].get_bool().value);
+        }
+    } catch (mongocxx::exception &e) {
+        std::cout << "mongocxx : " << e.what() << std::endl;
+    }
+
+
+
+
+
+
+}
+
+std::vector<Admin::ControlPanel::HaberPanel::NewsItem> Admin::ControlPanel::HaberPanel::getHaberList()
 {
     using bsoncxx::builder::basic::kvp;
 
     auto filter = bsoncxx::builder::basic::document{};
 
-    std::vector<bsoncxx::document::view> docList;
+    std::vector<NewsItem> docList;
 
     try {
         filter.append(kvp(DB::News::authoroid,useroid));
@@ -457,38 +477,60 @@ std::vector<bsoncxx::document::view> Admin::ControlPanel::HaberPanel::getHaberLi
         auto col = db->collection(DB::News::collection);
 
         try {
-            auto cursor = col.find(filter.view());
+
+            mongocxx::options::find findOptions;
+
+            auto findoptionKay = bsoncxx::builder::basic::document{};
+
+            try {
+                findoptionKay.append(kvp(DB::News::html,bsoncxx::types::b_bool{false}));
+            } catch (bsoncxx::exception &e) {
+                std::cout << "findOption Parsing Error: " << e.what() << std::endl;
+            }
+
+            findOptions.projection(findoptionKay.view());
+
+            auto cursor = col.find(filter.view(),findOptions);
+
             for( auto doc : cursor )
             {
-                docList.push_back(doc);
+                NewsItem item;
+                item.oid = doc[DB::News::Newsoid].get_oid().value.to_string();
+                item.title = doc[DB::News::title].get_utf8().value.to_string();
+                item.published = doc[DB::News::published].get_bool().value;
+                docList.push_back(item);
             }
 
         } catch (mongocxx::exception& e) {
             std::cout << "error mongocxx exception: " << e.what() << std::endl;
         }
 
-
     } catch (bsoncxx::exception &e) {
-        std::cout << e.what() << std::endl;
+        std::cout << "bsoncxx exception error: "<<e.what() << std::endl;
     }
 
     return docList;
 
 }
 
-bool Admin::ControlPanel::HaberPanel::enableNews(bool enable, bsoncxx::oid oid, bsoncxx::document::view doc)
+bool Admin::ControlPanel::HaberPanel::enableNews(bool enable, NewsItem doc)
 {
 
+    std::cout << "ENABLE : " << enable << std::endl;
     bool returnValue = false;
 
     auto filter = bsoncxx::builder::basic::document{};
     using bsoncxx::builder::basic::kvp;
     using bsoncxx::builder::basic::make_document;
     try {
-        filter.append(kvp(DB::News::Newsoid,doc[DB::News::Newsoid].get_oid().value));
+        filter.append(kvp(DB::News::Newsoid,bsoncxx::oid{doc.oid}));
         auto updatedoc = bsoncxx::builder::basic::document{};
 
-        updatedoc.append(kvp("$set",make_document(kvp(DB::News::published,bsoncxx::types::b_bool{enable}))));
+        try {
+            updatedoc.append(kvp("$set",make_document(kvp(DB::News::published,bsoncxx::types::b_bool{enable}))));
+        } catch (bsoncxx::exception &e) {
+            std::cout << "Error bsoncxx : " << e.what() << std::endl;
+        }
 
         std::cout << "FITER: " << bsoncxx::to_json(filter.view());
         std::cout << "UPDATE: " << bsoncxx::to_json(updatedoc.view());
@@ -517,7 +559,7 @@ bool Admin::ControlPanel::HaberPanel::enableNews(bool enable, bsoncxx::oid oid, 
 
 }
 
-bool Admin::ControlPanel::HaberPanel::disableNews(bsoncxx::oid oid, bsoncxx::document::view doc)
+bool Admin::ControlPanel::HaberPanel::disableNews(NewsItem doc)
 {
 
     bool returnValue = false;
@@ -526,7 +568,7 @@ bool Admin::ControlPanel::HaberPanel::disableNews(bsoncxx::oid oid, bsoncxx::doc
     using bsoncxx::builder::basic::kvp;
     using bsoncxx::builder::basic::make_document;
     try {
-        filter.append(kvp(DB::News::Newsoid,doc[DB::News::Newsoid].get_oid().value));
+        filter.append(kvp(DB::News::Newsoid,bsoncxx::oid{doc.oid}));
         auto updatedoc = bsoncxx::builder::basic::document{};
 
         updatedoc.append(kvp("$set",make_document(kvp(DB::News::published,bsoncxx::types::b_bool{true}))));
@@ -585,9 +627,9 @@ Admin::ControlPanel::AnouncePanel::AnouncePanel(mongocxx::database *_db)
         {
             auto backbutton = Layout->addWidget(cpp14::make_unique<WPushButton>("Back"));
 
-            backbutton->clicked().connect([=](){
-                backControlPanel.emit();
-            });
+//            backbutton->clicked().connect([=](){
+//                backControlPanel.emit();
+//            });
         }
     }
 

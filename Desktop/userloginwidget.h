@@ -97,22 +97,35 @@ namespace Admin {
             WContainerWidget* mContainer;
             WContainerWidget* mDetailContainer;
             WVBoxLayout* Layout;
-            Signal<> backControlPanel;
+//            Signal<> backControlPanel;
+
+            Signal<int> SelectedNewsIndex;
 
             Wt::WTextEdit *edit;
             WLineEdit* mTitle;
+            WCheckBox* mPublished;
 
 
             WContainerWidget* haberListWidget;
-            std::vector<bsoncxx::document::view> haberList;
+
+            struct NewsItem
+            {
+                std::string oid;
+                std::string title;
+                bool published;
+            };
+
+            std::vector<NewsItem> haberList;
 
 
             void refreshList(WContainerWidget* itemWidget);
 
+            void NewsDetail(int index);
+
         private:
-            std::vector<bsoncxx::document::view> getHaberList();
-            bool enableNews(bool enable,bsoncxx::oid oid, bsoncxx::document::view doc);
-            bool disableNews(bsoncxx::oid oid, bsoncxx::document::view doc);
+            std::vector<NewsItem> getHaberList();
+            bool enableNews(bool enable, NewsItem doc);
+            bool disableNews( NewsItem doc);
 
 
         };
@@ -129,7 +142,9 @@ namespace Admin {
             WVBoxLayout* mLayout;
             WContainerWidget* mContainer;
             WVBoxLayout* Layout;
-            Signal<> backControlPanel;
+//            Signal<> backControlPanel;
+
+
         };
     };
 
