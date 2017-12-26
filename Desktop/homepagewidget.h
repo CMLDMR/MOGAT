@@ -14,16 +14,26 @@
 #include <Wt/WImage.h>
 #include <Wt/WCssDecorationStyle.h>
 
-#include <memory>
+
+#include "mongoheaders.h"
+
+#include <memory.h>
+
 
 using namespace Wt;
 
 
+namespace HomePage {
+    class HomePageWidget : public WContainerWidget
+    {
+    public:
+        HomePageWidget();
 
-class HomePageWidget : public WContainerWidget
-{
-public:
-    HomePageWidget();
-};
+        WContainerWidget* mMainContainer;
+
+        void initLayout(WContainerWidget* container);
+    };
+}
+
 
 #endif // HOMEPAGEWIDGET_H

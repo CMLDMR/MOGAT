@@ -1,13 +1,24 @@
 #include "homepagewidget.h"
 
-HomePageWidget::HomePageWidget()
+HomePage::HomePageWidget::HomePageWidget()
 {
 
     setId("HomePageWidget");
 
+
+
     setContentAlignment(AlignmentFlag::Justify);
 
-    auto mLayout = setLayout(cpp14::make_unique<WVBoxLayout>());
+    mMainContainer = addWidget(cpp14::make_unique<WContainerWidget>());
+
+    this->initLayout(mMainContainer);
+
+}
+
+void HomePage::HomePageWidget::initLayout(WContainerWidget *container)
+{
+
+    auto mLayout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
 
     mLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/homepic1.png")))->addStyleClass("homeimg");
 
@@ -33,12 +44,9 @@ HomePageWidget::HomePageWidget()
 
     }
 
-    {
 
 
 
-
-    }
 
     {
 
@@ -71,5 +79,5 @@ HomePageWidget::HomePageWidget()
 
     }
 
-
 }
+

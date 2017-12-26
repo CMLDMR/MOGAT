@@ -34,7 +34,9 @@
 class AboutPageWidget;
 class ObjectivePageWidget;
 class ScopePageWidget;
-class HomePageWidget;
+namespace HomePage {
+    class HomePageWidget;
+}
 class UserLoginWidget;
 
 using namespace Wt;
