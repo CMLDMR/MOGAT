@@ -227,6 +227,7 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
     {
         auto controlLayout = Layout->addLayout(cpp14::make_unique<WHBoxLayout>(),0,AlignmentFlag::Center);
         auto newNewsButton = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Add New"),0,AlignmentFlag::Center);
+        newNewsButton->clicked().connect(this,&Admin::ControlPanel::HaberPanel::addNews);
 //        auto EditNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),0,AlignmentFlag::Center);
 //        auto DeleteNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),0,AlignmentFlag::Center);
     }
@@ -364,33 +365,7 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
 
             button->clicked().connect([=](){
 
-                using bsoncxx::builder::basic::kvp;
-
-                auto col = db->collection(DB::News::collection);
-                auto doc = bsoncxx::builder::basic::document{};
-
-                try {
-                    doc.append(kvp(DB::News::title,bsoncxx::types::b_utf8{mTitle->text().toUTF8().c_str()}));
-                    doc.append(kvp(DB::News::html,bsoncxx::types::b_utf8{edit->text().toUTF8().c_str()}));
-                    doc.append(kvp(DB::News::clickCount,bsoncxx::types::b_int64{0}));
-                    doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{DB::News::publishState::OFF}));
-                    doc.append(kvp(DB::News::authoroid,useroid));
-                    doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
-                } catch (bsoncxx::exception &e) {
-                    std::cout << "bson cxx : " << e.what() << std::endl;
-                }
-
-                try {
-                    mongocxx::stdx::optional<mongocxx::result::insert_one> res = col.insert_one(doc.view());
-                    if( res )
-                    {
-                        std::cout << "res : " << res.value().result().inserted_count() << std::endl;
-                    }else{
-                        std::cout << "No Doc inserted " << std::endl;
-                    }
-                } catch (mongocxx::exception &e) {
-                    std::cout << e.what() << std::endl;
-                }
+                this->saveNews();
 
             });
 
@@ -417,7 +392,7 @@ void Admin::ControlPanel::HaberPanel::refreshList(WContainerWidget *itemWidget)
         auto doc = haberList[i];
 
         auto container = itemLayout->addWidget(cpp14::make_unique<WContainerWidget>());
-        container->addStyleClass("borderLine");
+        container->addStyleClass("borderLine newsListItem");
         container->setContentAlignment(AlignmentFlag::Center);
         auto layout = container->setLayout(cpp14::make_unique<WVBoxLayout>());
         layout->addWidget(cpp14::make_unique<WText>(doc.title));
@@ -426,6 +401,7 @@ void Admin::ControlPanel::HaberPanel::refreshList(WContainerWidget *itemWidget)
         container->clicked().connect([=](){
             std::cout << "Bind Oid " << i/*<< doc[DB::News::Newsoid].get_oid().value.to_string()*/ << std::endl;
             SelectedNewsIndex.emit(i);
+            mDeleteNews->setEnabled(true);
         });
 
 
@@ -472,53 +448,209 @@ void Admin::ControlPanel::HaberPanel::NewsDetail(int index)
 
 }
 
+void Admin::ControlPanel::HaberPanel::saveNews()
+{
+
+    if( mTitle->text().empty() )
+    {
+        auto messageBox = this->addChild(
+                Wt::cpp14::make_unique<Wt::WMessageBox>
+                ("Warning",
+                 Wt::WString("<p>You Can not save without Title</p>"),
+                 Wt::Icon::Information, Wt::StandardButton::Ok));
+
+        messageBox->buttonClicked().connect([=] {
+                        this->removeChild(messageBox);
+                    });
+
+        messageBox->show();
+
+        return;
+    }
+
+    if( edit->text().toUTF8().size() < 250 )
+    {
+        auto messageBox = this->addChild(
+                Wt::cpp14::make_unique<Wt::WMessageBox>
+                ("Warning",
+                 Wt::WString("<p>News Content is Too Short</p>"
+                             "<p>Fill more than 250 Characters</p>"),
+                 Wt::Icon::Information, Wt::StandardButton::Ok));
+
+        messageBox->buttonClicked().connect([=] {
+                        this->removeChild(messageBox);
+                    });
+
+        messageBox->show();
+
+        return;
+    }
+
+    if( mNewsoid->text().toUTF8().size() )
+    {
+        this->changeNews();
+        return;
+    }
+
+
+
+    using bsoncxx::builder::basic::kvp;
+
+    auto col = db->collection(DB::News::collection);
+    auto doc = bsoncxx::builder::basic::document{};
+
+    try {
+        doc.append(kvp(DB::News::title,bsoncxx::types::b_utf8{mTitle->text().toUTF8().c_str()}));
+        doc.append(kvp(DB::News::html,bsoncxx::types::b_utf8{edit->text().toUTF8().c_str()}));
+        doc.append(kvp(DB::News::clickCount,bsoncxx::types::b_int64{0}));
+        doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{DB::News::publishState::OFF}));
+        doc.append(kvp(DB::News::authoroid,useroid));
+        doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
+    } catch (bsoncxx::exception &e) {
+        std::cout << "bson cxx : " << e.what() << std::endl;
+    }
+
+    try {
+        mongocxx::stdx::optional<mongocxx::result::insert_one> res = col.insert_one(doc.view());
+        if( res )
+        {
+            std::cout << "res : " << res.value().result().inserted_count() << std::endl;
+
+            this->refreshList(haberListWidget);
+            this->addNews();
+        }else{
+            std::cout << "No Doc inserted " << std::endl;
+        }
+    } catch (mongocxx::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+
+}
+
 void Admin::ControlPanel::HaberPanel::deleteNews()
 {
-    mDeleteNews->clicked().connect([=](){
 
         if( !mNewsoid->text().empty() )
         {
-
             auto filter = bsoncxx::builder::basic::document{};
-
             try {
                 filter.append(bsoncxx::builder::basic::kvp(DB::News::Newsoid,bsoncxx::oid{mNewsoid->text().toUTF8().c_str()}));
-
                 auto col = db->collection(DB::News::collection);
-
                 try {
                     mongocxx::stdx::optional<mongocxx::result::delete_result> del = col.delete_one(filter.view());
-
                     if( del )
                     {
                         if( del.get().deleted_count() )
                         {
-                            edit->setText("News Deleted");
+                            edit->setText("");
                             mNewsoid->setText("");
                             mTitle->setText("");
                             this->refreshList(haberListWidget);
+                            this->MessageBox("info","<p>Selected News Deleted</p>");
                         }else{
                             std::cout << "no Deleted News " << std::endl;
                         }
                     }else{
                         std::cout << "No Del pointer" << std::endl;
                     }
-
                 } catch (mongocxx::exception &e) {
                     std::cout << "delete one error: " << e.what() << std::endl;
                 }
-
             } catch (bsoncxx::exception &e) {
                 std::cout << "BSON CXX Parsing Error: " << e.what() << std::endl;
             }
-
-
-
+        }else{
+            this->MessageBox("info","<p>No Deletable İtem Found</p>");
         }
 
 
-    });
 
+}
+
+void Admin::ControlPanel::HaberPanel::addNews()
+{
+    edit->setText("");
+    mTitle->setText("");
+    mNewsoid->setText("");
+    mPublished->setChecked(false);
+    mDeleteNews->setEnabled(false);
+}
+
+void Admin::ControlPanel::HaberPanel::changeNews()
+{
+    using bsoncxx::builder::basic::kvp;
+    using bsoncxx::builder::basic::make_document;
+
+
+
+
+    auto filter = bsoncxx::builder::basic::document{};
+
+    try {
+        filter.append(kvp(DB::News::Newsoid,bsoncxx::oid{mNewsoid->text().toUTF8().c_str()}));
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Error bsoncxx " << e.what() << std::endl;
+        return;
+    }
+
+
+    auto col = db->collection(DB::News::collection);
+    auto doc = bsoncxx::builder::basic::document{};
+    auto setdoc = bsoncxx::builder::basic::document{};
+
+    try {
+        doc.append(kvp(DB::News::title,bsoncxx::types::b_utf8{mTitle->text().toUTF8().c_str()}));
+        doc.append(kvp(DB::News::html,bsoncxx::types::b_utf8{edit->text().toUTF8().c_str()}));
+        doc.append(kvp(DB::News::authoroid,useroid));
+        doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
+    } catch (bsoncxx::exception &e) {
+        std::cout << "bson cxx : " << e.what() << std::endl;
+        return;
+    }
+
+    try {
+        setdoc.append(kvp("$set",bsoncxx::types::b_document{doc}));
+    } catch (bsoncxx::exception &e) {
+        std::cout << "Error $set file bsoncxx: " << std::endl;
+        return;
+    }
+
+    try {
+        mongocxx::stdx::optional<mongocxx::result::update> upt = col.update_one(filter.view(),setdoc.view());
+        if( upt )
+        {
+            std::cout << "res : " << upt.get().modified_count() << std::endl;
+
+            if( upt.get().modified_count() )
+            {
+                this->MessageBox("info", "<p>Content Changed</p>");
+                this->refreshList(haberListWidget);
+            }else{
+                this->MessageBox("Warning", "<p>No Content Changed</p>");
+            }
+        }else{
+            std::cout << "No Doc updated " << std::endl;
+        }
+    } catch (mongocxx::exception &e) {
+        std::cout << "mongocxx update error: "<<e.what() << std::endl;
+    }
+}
+
+void Admin::ControlPanel::HaberPanel::MessageBox(std::string title, std::string message)
+{
+    auto messageBox = this->addChild(
+            Wt::cpp14::make_unique<Wt::WMessageBox>
+            (title,
+             Wt::WString(message),
+             Wt::Icon::Information, Wt::StandardButton::Ok));
+
+    messageBox->buttonClicked().connect([=] {
+                    this->removeChild(messageBox);
+                });
+
+    messageBox->show();
+
+    return;
 }
 
 std::vector<Admin::ControlPanel::HaberPanel::NewsItem> Admin::ControlPanel::HaberPanel::getHaberList()
@@ -677,8 +809,8 @@ Admin::ControlPanel::AnouncePanel::AnouncePanel(mongocxx::database *_db)
     {
         auto controlLayout = Layout->addLayout(cpp14::make_unique<WHBoxLayout>(),1,AlignmentFlag::Justify);
         auto newAnounceButton = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Add New"),1,AlignmentFlag::Center);
-        auto EditAnounce = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),1,AlignmentFlag::Center);
-        auto DeleteAnounce = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),1,AlignmentFlag::Center);
+//        auto EditAnounce = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),1,AlignmentFlag::Center);
+//        auto DeleteAnounce = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),1,AlignmentFlag::Center);
     }
 
     {

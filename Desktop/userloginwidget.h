@@ -35,6 +35,8 @@
 #include <Wt/WCheckBox.h>
 #include <Wt/WFileUpload.h>
 #include <Wt/WProgressBar.h>
+#include <Wt/WMessageBox.h>
+
 
 #include "mongoheaders.h"
 
@@ -124,7 +126,12 @@ namespace Admin {
 
             void NewsDetail(int index);
 
+            void saveNews();
             void deleteNews();
+            void addNews();
+            void changeNews();
+
+            void MessageBox(std::string title,std::string message);
 
         private:
             std::vector<NewsItem> getHaberList();

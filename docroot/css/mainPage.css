@@ -187,6 +187,22 @@
 /*NEWS CONTROL PANEL*/
 
 
+.newsListItem
+{
+    color:black;
+    transition: ease-in-out 0.25s;
+}
+
+.newsListItem:hover
+{
+    cursor:pointer;
+    color:white;
+    background:rgb(35,35,35);
+}
+
+
+
+
 
 /******/
 
