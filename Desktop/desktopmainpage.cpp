@@ -211,7 +211,7 @@ void MainPage::Body::f_Mogat()
 
     mContentWidget->setContentAlignment(AlignmentFlag::Center );
 
-    mContentWidget->addWidget(cpp14::make_unique<HomePage::HomePageWidget>());
+    mContentWidget->addWidget(cpp14::make_unique<HomePage::HomePageWidget>(db));
 
     this->f_relocateFooter();
 

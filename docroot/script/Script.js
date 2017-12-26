@@ -41,3 +41,8 @@ function relocationFooter(){
         document.getElementById("footerid").style.position = "relative";
     }
 }
+
+
+
+
+

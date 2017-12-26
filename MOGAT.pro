@@ -58,7 +58,8 @@ HEADERS += \
     Desktop/homepagewidget.h \
     Desktop/userloginwidget.h \
     db.h \
-    mongoheaders.h
+    mongoheaders.h \
+    ../../Comman/bootstrap.h
 
 
 
@@ -99,3 +100,10 @@ else:unix: LIBS += -L$$PWD/lib/ -lmongocxx
 
 INCLUDEPATH += $$PWD/include/mongocxx/v_noabi
 DEPENDPATH += $$PWD/include/mongocxx/v_noabi
+
+
+
+INCLUDEPATH += $$PWD/../../Comman
+DEPENDPATH += $$PWD/../../Comman
+
+

@@ -21,6 +21,8 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 
     Wt::WApplication::instance()->setBodyClass("introMain");
 
+
+
 //    std::cout << "instance id: " << Wt::WApplication::instance()->id() << std::endl;
 
 //    root()->addStyleClass("borderLine");
@@ -28,6 +30,8 @@ MainApplication::MainApplication(const Wt::WEnvironment &env)
 
 
     WApplication::instance()->addMetaHeader("viewport","width=device.width, initial-scale=1.0");
+
+
 
 
     this->initMogat();

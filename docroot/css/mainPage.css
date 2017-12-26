@@ -159,6 +159,72 @@
 }
 
 
+/*NEWS LIST*/
+.BodyNewsListItemWidgetLastestTitle
+{
+    text-transform: capitalize;
+    font-size: 24px;
+    font-style: bold;
+    font-family: "Tahoma", Times, serif
+}
+
+.BodyNewsListItemWidget
+{
+    background:rgba(235,235,235,0);
+    border-top:1px solid gray;
+    transition:ease-in-out .25s;
+}
+
+.BodyNewsListItemWidget:hover
+{
+    background:rgb(100,100,100);
+    color:white;
+    cursor:pointer;
+}
+
+.BodyNewsListItemTitle
+{
+    text-transform: capitalize;
+    font-size: 15px;
+    font-style: bold;
+    font-family: "Tahoma", Times, serif
+}
+
+.BodyNewsListItem
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+    max-height:75px;
+    text-transform: lowercase;
+    opacity: .4;
+}
+
+/****************/
+
+
+/*NEWS DETAIL*/
+
+.newDetailWidget
+{
+
+}
+
+.newsDetailWidgetTitle
+{
+    text-transform: capitalize;
+    font-size: 25px;
+    font-style: bold;
+    font-family: "Tahoma", Times, serif
+}
+
+
+
+/*************/
+
+
 /*********************/
 
 

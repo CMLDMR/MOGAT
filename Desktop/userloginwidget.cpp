@@ -175,9 +175,9 @@ Admin::ControlPanel::ControlPanel(mongocxx::database *_db)
         auto haberler = container.get()->addWidget(cpp14::make_unique<HaberPanel>(db));
         mContentStack->insertWidget(1,std::move(container));
 
-//        haberler->backControlPanel.connect([=](){
-//            mContentStack->setCurrentIndex(0);
-//        });
+        haberler->backControlPanel.connect([=](){
+            mContentStack->setCurrentIndex(0);
+        });
     }
 
     {
@@ -225,18 +225,19 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
 
 
     {
+        Layout->addStretch(1);
         auto controlLayout = Layout->addLayout(cpp14::make_unique<WHBoxLayout>(),0,AlignmentFlag::Center);
+        controlLayout->addStretch(1);
         auto newNewsButton = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Add New"),0,AlignmentFlag::Center);
         newNewsButton->clicked().connect(this,&Admin::ControlPanel::HaberPanel::addNews);
-//        auto EditNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),0,AlignmentFlag::Center);
-//        auto DeleteNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),0,AlignmentFlag::Center);
+
     }
 
     {
         auto backbutton = Layout->addWidget(cpp14::make_unique<WPushButton>("Back"));
-//        backbutton->clicked().connect([=](){
-//            backControlPanel.emit();
-//        });
+        backbutton->clicked().connect([=](){
+            backControlPanel.emit();
+        });
     }
 
     mDetailContainer = hLayout->addWidget(cpp14::make_unique<WContainerWidget>(),1,AlignmentFlag::Justify);
@@ -244,85 +245,7 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
     {
         auto vLayout = mDetailContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
 
-        // icon select if exist image
-        if(0){
-            auto container = vLayout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
 
-//            char *wtTmpDir = std::getenv("WT_TMP_DIR");
-//            std::cout << "TEMPDIR: " << wtTmpDir << std::endl;
-
-            Wt::WFileUpload *fu =
-                container->addWidget(Wt::cpp14::make_unique<Wt::WFileUpload>());
-            fu->setFileTextSize(500); // Set the maximum file size to 50 kB.
-            WProgressBar* pBar = container->addWidget(cpp14::make_unique<WProgressBar>());
-
-            fu->setProgressBar(pBar);
-//            container->addWidget(fu->progressBar());
-            fu->setMargin(10, Wt::Side::Right);
-
-            // Provide a button to start uploading.
-            Wt::WPushButton *uploadButton =
-                container->addWidget(Wt::cpp14::make_unique<Wt::WPushButton>("Send"));
-            uploadButton->setMargin(10, Wt::Side::Left | Wt::Side::Right);
-
-            Wt::WText *out = container->addWidget(Wt::cpp14::make_unique<Wt::WText>());
-
-            // Upload when the button is clicked.
-            uploadButton->clicked().connect([=] {
-
-                fu->upload();
-                uploadButton->disable();
-            });
-
-            // Upload automatically when the user entered a file.
-            fu->changed().connect([=] {
-                fu->upload();
-                uploadButton->disable();
-                out->setText("File upload is changed.");
-
-            });
-
-            // React to a succesfull upload.
-            fu->uploaded().connect([=] {
-                out->setText("File upload is finished.");
-                std::cout << "CLINE TFONE NAME: " << fu->clientFileName().toUTF8().c_str() << std::endl;
-                std::cout << "CLINE TFONE NAME: " << fu->contentDescription().toUTF8().c_str() << std::endl;
-                std::cout << "CLINE TFONE NAME: " << fu->spoolFileName() << std::endl;
-                QFileInfo info(QString::fromStdString(fu->spoolFileName()));
-
-                std::cout << "File Dir: " << info.absolutePath().toStdString().c_str() << std::endl;
-
-                QFile file(fu->spoolFileName().c_str() );
-                if( file.open(QIODevice::ReadOnly) )
-                {
-                    QByteArray ar = file.readAll();
-                    file.close();
-
-                    file.setFileName(info.absolutePath()+"/11.jpeg");
-
-                    std::cout << QDir::currentPath().toStdString().c_str() << std::endl;
-
-                    if( file.open(QIODevice::ReadWrite) )
-                    {
-                        file.write(ar);
-                        file.close();
-
-                        QString str = QString::fromStdString(edit->text().toUTF8());
-                        str.append("<img src="+info.absolutePath()+"/11.jpeg>");
-                        edit->setText(str.toStdString());
-                        std::cout << edit->text().toUTF8().c_str() << std::endl;
-                    }
-                }else{
-                    std::cout << "FILE CAN NOT READ " << std::endl;
-                }
-            });
-
-            // React to a file upload problem.
-            fu->fileTooLarge().connect([=] {
-                out->setText("File is too large.");
-            });
-
-        }
 
 
 
@@ -348,8 +271,10 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
 
             auto container = vLayout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
             edit = container->addWidget(Wt::cpp14::make_unique<Wt::WTextEdit>());
+            edit->setExtraPlugins("advlist autolink link image lists charmap print preview table");
+            edit->setToolBar(0,"undo redo | styleselect | bold italic | link image media | cell | formats align blockformats");
             edit->setHeight(450);
-            edit->setWidth(650);
+            edit->setWidth(850);
             edit->setText("<p>"
                 "<span style=\"font-family: 'courier new', courier; font-size: medium;\">"
                 "<strong>News Content Here(Remove Content to Start)</strong></span></p>"
@@ -359,14 +284,86 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
                     "<li>Line 3</li>"
                   "</ul>");
 
-            Wt::WPushButton *button =
-            container->addWidget(Wt::cpp14::make_unique<Wt::WPushButton>("Save"));
+
+            {
+                auto btnGroup = container->addWidget(cpp14::make_unique<WContainerWidget>());
+                auto layout = btnGroup->setLayout(cpp14::make_unique<WHBoxLayout>());
+
+                // icon select if exist image
+                if(1){
+
+                    auto container = layout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
+
+                    fu = container->addWidget(Wt::cpp14::make_unique<Wt::WFileUpload>());
+                    fu->setFileTextSize(500); // Set the maximum file size to 50 kB.
+                    WProgressBar* pBar = container->addWidget(cpp14::make_unique<WProgressBar>());
+
+                    fu->setProgressBar(pBar);
+                    fu->setMargin(10, Wt::Side::Right);
+
+                    Wt::WText *out = container->addWidget(Wt::cpp14::make_unique<Wt::WText>());
+
+
+                    // Upload automatically when the user entered a file.
+                    fu->changed().connect([=] {
+                        fu->upload();
+                        out->setText("File upload is changed.");
+                    });
+
+                    // React to a succesfull upload.
+                    fu->uploaded().connect([=] {
+                        out->setText("File upload is finished.");
+                        fu->setHidden(false);
+                        QFileInfo info(QString::fromStdString(fu->spoolFileName()));
+
+                        std::cout << "File Dir: " << info.absolutePath().toStdString().c_str() << std::endl;
+
+                        QFile file(fu->spoolFileName().c_str() );
+                        if( file.open(QIODevice::ReadOnly) )
+                        {
+                            QByteArray ar = file.readAll();
+                            file.close();
+                            QString newName = QDate::currentDate().toString("yyyyMMdd")+QTime::currentTime().toString("hhmmsszzz");
+                            QFileInfo info1(QString::fromStdString(fu->clientFileName().toUTF8().c_str()));
+                            QString newFileName = "docroot/temp/"+ newName+"."+info1.suffix();
+                            std::string appenfilename = "<img src=temp/"+newName.toStdString()+"."+info1.suffix().toStdString()+">";
+
+                            file.setFileName(newFileName);
+
+                            std::cout << QDir::currentPath().toStdString().c_str() << std::endl;
+
+                            if( file.open(QIODevice::ReadWrite) )
+                            {
+                                file.write(ar);
+                                file.close();
+
+                                QString str = QString::fromStdString(edit->text().toUTF8());
+                                str.append(appenfilename.c_str());
+
+                                std::string _str = edit->text().toUTF8();
+                                _str.append(str.toStdString());
+                                edit->setText(_str);
+
+                                edit->setText(str.toStdString());
+                                std::cout << edit->text().toUTF8().c_str() << std::endl;
+                            }
+                        }else{
+                            std::cout << "FILE CAN NOT READ " << std::endl;
+                        }
+                    });
+
+                    fu->fileTooLarge().connect([=] {
+                        out->setText("File is too large.");
+                    });
+
+                }
+            }
+
+            Wt::WPushButton *button = container->addWidget(Wt::cpp14::make_unique<Wt::WPushButton>("Save"));
             button->setMargin(10, Wt::Side::Top | Wt::Side::Bottom);
 
             button->clicked().connect([=](){
-
                 this->saveNews();
-
             });
 
             vLayout->addStretch(1);
@@ -634,6 +631,13 @@ void Admin::ControlPanel::HaberPanel::changeNews()
     } catch (mongocxx::exception &e) {
         std::cout << "mongocxx update error: "<<e.what() << std::endl;
     }
+}
+
+void Admin::ControlPanel::HaberPanel::appendimagetoEditor()
+{
+
+
+
 }
 
 void Admin::ControlPanel::HaberPanel::MessageBox(std::string title, std::string message)

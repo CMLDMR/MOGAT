@@ -7,6 +7,10 @@
 #include <QByteArray>
 #include <QDir>
 #include <QFileInfo>
+#include <QDate>
+#include <QTime>
+
+
 
 #include <Wt/WContainerWidget.h>
 #include <Wt/WWidget.h>
@@ -99,7 +103,7 @@ namespace Admin {
             WContainerWidget* mContainer;
             WContainerWidget* mDetailContainer;
             WVBoxLayout* Layout;
-//            Signal<> backControlPanel;
+            Signal<> backControlPanel;
 
             Signal<int> SelectedNewsIndex;
 
@@ -108,6 +112,8 @@ namespace Admin {
             WCheckBox* mPublished;
             WLineEdit* mNewsoid;
             WPushButton* mDeleteNews;
+
+            Wt::WFileUpload *fu;
 
 
             WContainerWidget* haberListWidget;
@@ -130,6 +136,8 @@ namespace Admin {
             void deleteNews();
             void addNews();
             void changeNews();
+
+            void appendimagetoEditor();
 
             void MessageBox(std::string title,std::string message);
 
