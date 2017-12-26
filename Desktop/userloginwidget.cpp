@@ -227,8 +227,8 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
     {
         auto controlLayout = Layout->addLayout(cpp14::make_unique<WHBoxLayout>(),0,AlignmentFlag::Center);
         auto newNewsButton = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Add New"),0,AlignmentFlag::Center);
-        auto EditNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),0,AlignmentFlag::Center);
-        auto DeleteNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),0,AlignmentFlag::Center);
+//        auto EditNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Edit Selected"),0,AlignmentFlag::Center);
+//        auto DeleteNews = controlLayout->addWidget(cpp14::make_unique<WPushButton>("Delete Selected"),0,AlignmentFlag::Center);
     }
 
     {
@@ -336,6 +336,13 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
                 auto tetx = _layout->addWidget(cpp14::make_unique<WText>("Publish"));
                 mPublished = _layout->addWidget(cpp14::make_unique<WCheckBox>());
                 _layout->addStretch(1);
+
+                mNewsoid = _layout->addWidget(cpp14::make_unique<WLineEdit>());
+                mNewsoid->setMaximumSize(350,WLength::Auto);
+                mNewsoid->setEnabled(false);
+                mDeleteNews = _layout->addWidget(cpp14::make_unique<WPushButton>("Delete This"));
+                mDeleteNews->clicked().connect(this,&Admin::ControlPanel::HaberPanel::deleteNews);
+
             }
 
             auto container = vLayout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
@@ -344,7 +351,7 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
             edit->setWidth(650);
             edit->setText("<p>"
                 "<span style=\"font-family: 'courier new', courier; font-size: medium;\">"
-                "<strong>News Content Here</strong></span></p>"
+                "<strong>News Content Here(Remove Content to Start)</strong></span></p>"
                   "<ul style=\"padding: 0px; margin: 0px 0px 10px 25px;\">"
                     "<li>Line 1</li>"
                     "<li>Line 2</li>"
@@ -451,6 +458,8 @@ void Admin::ControlPanel::HaberPanel::NewsDetail(int index)
             edit->setText(WString(res.get().view()[DB::News::html].get_utf8().value.to_string().c_str()));
             mTitle->setText(WString(res.get().view()[DB::News::title].get_utf8().value.to_string().c_str()));
             mPublished->setChecked(res.get().view()[DB::News::published].get_bool().value);
+            mNewsoid->setText(res.get().view()[DB::News::Newsoid].get_oid().value.to_string());
+
         }
     } catch (mongocxx::exception &e) {
         std::cout << "mongocxx : " << e.what() << std::endl;
@@ -460,6 +469,55 @@ void Admin::ControlPanel::HaberPanel::NewsDetail(int index)
 
 
 
+
+}
+
+void Admin::ControlPanel::HaberPanel::deleteNews()
+{
+    mDeleteNews->clicked().connect([=](){
+
+        if( !mNewsoid->text().empty() )
+        {
+
+            auto filter = bsoncxx::builder::basic::document{};
+
+            try {
+                filter.append(bsoncxx::builder::basic::kvp(DB::News::Newsoid,bsoncxx::oid{mNewsoid->text().toUTF8().c_str()}));
+
+                auto col = db->collection(DB::News::collection);
+
+                try {
+                    mongocxx::stdx::optional<mongocxx::result::delete_result> del = col.delete_one(filter.view());
+
+                    if( del )
+                    {
+                        if( del.get().deleted_count() )
+                        {
+                            edit->setText("News Deleted");
+                            mNewsoid->setText("");
+                            mTitle->setText("");
+                            this->refreshList(haberListWidget);
+                        }else{
+                            std::cout << "no Deleted News " << std::endl;
+                        }
+                    }else{
+                        std::cout << "No Del pointer" << std::endl;
+                    }
+
+                } catch (mongocxx::exception &e) {
+                    std::cout << "delete one error: " << e.what() << std::endl;
+                }
+
+            } catch (bsoncxx::exception &e) {
+                std::cout << "BSON CXX Parsing Error: " << e.what() << std::endl;
+            }
+
+
+
+        }
+
+
+    });
 
 }
 

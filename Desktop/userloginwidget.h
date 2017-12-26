@@ -104,6 +104,8 @@ namespace Admin {
             Wt::WTextEdit *edit;
             WLineEdit* mTitle;
             WCheckBox* mPublished;
+            WLineEdit* mNewsoid;
+            WPushButton* mDeleteNews;
 
 
             WContainerWidget* haberListWidget;
@@ -121,6 +123,8 @@ namespace Admin {
             void refreshList(WContainerWidget* itemWidget);
 
             void NewsDetail(int index);
+
+            void deleteNews();
 
         private:
             std::vector<NewsItem> getHaberList();
