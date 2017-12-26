@@ -2,6 +2,8 @@
 #define HOMEPAGEWIDGET_H
 
 #include <QtCore/qglobal.h>
+#include <QString>
+#include <QRegExp>
 
 #include <Wt/WContainerWidget.h>
 #include <Wt/WWidget.h>
@@ -16,6 +18,7 @@
 #include <Wt/WTextArea.h>
 #include <Wt/WTextEdit.h>
 #include <Wt/WLabel.h>
+#include <Wt/WBreak.h>
 
 #include "db.h"
 #include "mongoheaders.h"
@@ -71,6 +74,7 @@ using bsoncxx::builder::basic::make_document;
             std::string oid;
             std::string title;
             std::string html;
+            std::string iconPath;
         };
 
         std::vector<NewsItem> NewsList;

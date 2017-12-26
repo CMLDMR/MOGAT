@@ -202,8 +202,6 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
     db(_db)
 {
 
-//    addStyleClass("borderLine");
-
     auto hLayout = setLayout(cpp14::make_unique<WHBoxLayout>());
 
     auto mainContainer = hLayout->addWidget(cpp14::make_unique<WContainerWidget>(),0,AlignmentFlag::Left);
@@ -246,11 +244,72 @@ Admin::ControlPanel::HaberPanel::HaberPanel(mongocxx::database* _db)
         auto vLayout = mDetailContainer->setLayout(cpp14::make_unique<WVBoxLayout>());
 
 
-
-
-
-
         {
+
+            // icon select if exist image
+            if(1){
+
+                auto container = vLayout->addWidget(cpp14::make_unique<Wt::WContainerWidget>());
+
+                iconimg = container->addWidget(cpp14::make_unique<WImage>());
+                iconimg->addStyleClass("iconimgFrame");
+
+                iconUploader = container->addWidget(Wt::cpp14::make_unique<Wt::WFileUpload>());
+                iconUploader->setFileTextSize(500); // Set the maximum file size to 50 kB.
+                WProgressBar* pBar = container->addWidget(cpp14::make_unique<WProgressBar>());
+
+                iconUploader->setProgressBar(pBar);
+                iconUploader->setMargin(10, Wt::Side::Right);
+
+                Wt::WText *out = container->addWidget(Wt::cpp14::make_unique<Wt::WText>());
+
+
+                // Upload automatically when the user entered a file.
+                iconUploader->changed().connect([=] {
+                    iconUploader->upload();
+                    out->setText("File upload is changed.");
+                });
+
+                // React to a succesfull upload.
+                iconUploader->uploaded().connect([=] {
+                    out->setText("File upload is finished.");
+                    iconUploader->setHidden(false);
+                    QFileInfo info(QString::fromStdString(iconUploader->spoolFileName()));
+
+                    std::cout << "File Dir: " << info.absolutePath().toStdString().c_str() << std::endl;
+
+                    QFile file(iconUploader->spoolFileName().c_str() );
+                    if( file.open(QIODevice::ReadOnly) )
+                    {
+                        QByteArray ar = file.readAll();
+                        file.close();
+                        QString newName = QDate::currentDate().toString("yyyyMMdd")+QTime::currentTime().toString("hhmmsszzz");
+                        QFileInfo info1(QString::fromStdString(iconUploader->clientFileName().toUTF8().c_str()));
+                        QString newFileName = "docroot/temp/"+ newName+"."+info1.suffix();
+                        std::string appenfilename = "temp/"+newName.toStdString()+"."+info1.suffix().toStdString();
+
+                        file.setFileName(newFileName);
+
+
+                        if( file.open(QIODevice::ReadWrite) )
+                        {
+                            file.write(ar);
+                            file.close();
+
+                            iconimg->setImageLink(WLink(appenfilename));
+                        }
+                    }else{
+                        std::cout << "FILE CAN NOT READ " << std::endl;
+                    }
+                });
+
+                iconUploader->fileTooLarge().connect([=] {
+                    out->setText("File is too large.");
+                });
+
+            }
+
+
             auto hlayout = vLayout->addLayout(cpp14::make_unique<WHBoxLayout>());
             mTitle = hlayout->addWidget(cpp14::make_unique<WLineEdit>(),0,AlignmentFlag::Center|AlignmentFlag::Middle);
             mTitle->setPlaceholderText("News Title");
@@ -503,6 +562,7 @@ void Admin::ControlPanel::HaberPanel::saveNews()
         doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{DB::News::publishState::OFF}));
         doc.append(kvp(DB::News::authoroid,useroid));
         doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
+        doc.append(kvp(DB::News::icon,bsoncxx::types::b_utf8{iconimg->imageLink().url().c_str()}));
     } catch (bsoncxx::exception &e) {
         std::cout << "bson cxx : " << e.what() << std::endl;
     }
@@ -600,6 +660,8 @@ void Admin::ControlPanel::HaberPanel::changeNews()
         doc.append(kvp(DB::News::html,bsoncxx::types::b_utf8{edit->text().toUTF8().c_str()}));
         doc.append(kvp(DB::News::authoroid,useroid));
         doc.append(kvp(DB::News::published,bsoncxx::types::b_bool{mPublished->isChecked()}));
+        doc.append(kvp(DB::News::icon,bsoncxx::types::b_utf8{iconimg->imageLink().url().c_str()}));
+
     } catch (bsoncxx::exception &e) {
         std::cout << "bson cxx : " << e.what() << std::endl;
         return;

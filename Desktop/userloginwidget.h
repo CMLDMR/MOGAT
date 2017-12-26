@@ -114,6 +114,8 @@ namespace Admin {
             WPushButton* mDeleteNews;
 
             Wt::WFileUpload *fu;
+            Wt::WFileUpload *iconUploader;
+            WImage* iconimg;
 
 
             WContainerWidget* haberListWidget;

@@ -76,7 +76,7 @@ void HomePage::HomePageWidget::initLayout(WContainerWidget *container)
 
             auto layout = container->setLayout(cpp14::make_unique<WHBoxLayout>());
 
-            layout->addWidget(cpp14::make_unique<WImage>(WLink("img/impactdesired.png")),0,AlignmentFlag::Middle)->addStyleClass("outcomesproject");
+//            layout->addWidget(cpp14::make_unique<WImage>(WLink("img/impactdesired.png")),0,AlignmentFlag::Middle)->addStyleClass("outcomesproject");
 
             layout->addWidget(cpp14::make_unique<WText>("<p><b>IMPACT desired</b></p>"
                              "<p>The project will describe organisational models, "
@@ -97,7 +97,7 @@ void HomePage::HomePageWidget::initLayout(WContainerWidget *container)
                                                         "optimise student success, and to enable their own researchers to ask foundational questions about "
                                                         "learning and teaching in the 21st century\".</p>"))->addStyleClass("homeText");
 
-            mLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/impactdesired.png")),0,AlignmentFlag::Center)->addStyleClass("outcomesprojectmobile");
+//            mLayout->addWidget(cpp14::make_unique<WImage>(WLink("img/impactdesired.png")),0,AlignmentFlag::Center)->addStyleClass("outcomesprojectmobile");
 
         }
 
@@ -218,6 +218,7 @@ HomePage::NewsListWidget::NewsListWidget(mongocxx::database *_db)
             item.oid = doc[DB::News::Newsoid].get_oid().value.to_string();
             item.html = doc[DB::News::html].get_utf8().value.to_string();
             item.title = doc[DB::News::title].get_utf8().value.to_string();
+            item.iconPath = doc[DB::News::icon].get_utf8().value.to_string();
             NewsList.push_back(item);
         }
 
@@ -226,9 +227,32 @@ HomePage::NewsListWidget::NewsListWidget(mongocxx::database *_db)
             {
                 auto itemWidget = layout->addWidget(cpp14::make_unique<WContainerWidget>());
                 itemWidget->addStyleClass(Bootstrap::Grid::row+"BodyNewsListItemWidget");
-                itemWidget->addWidget(cpp14::make_unique<WText>(item.title))->addStyleClass(Bootstrap::Grid::Large::col_lg_12 + "BodyNewsListItemTitle");
-                auto content = itemWidget->addWidget(cpp14::make_unique<WText>(item.html));
-                content->addStyleClass(Bootstrap::Grid::Large::col_lg_12 + "BodyNewsListItem");
+
+//                itemWidget->setMaximumSize(350,WLength::Auto);
+
+                auto hLayout = itemWidget->setLayout(cpp14::make_unique<WHBoxLayout>());
+
+
+                auto img = hLayout->addWidget(cpp14::make_unique<WImage>(WLink(item.iconPath)));
+                img->addStyleClass("iconimgFrame");
+
+                auto itemcontainer = hLayout->addWidget(cpp14::make_unique<WContainerWidget>());
+                itemcontainer->setContentAlignment(AlignmentFlag::Left);
+
+                itemcontainer->addWidget(cpp14::make_unique<WText>(item.title))->addStyleClass("BodyNewsListItemTitle");
+
+                itemcontainer->addWidget(cpp14::make_unique<WBreak>());
+
+                QString str = QString::fromStdString(item.html);
+
+                str.remove(QRegExp("<[^>]*>"));
+
+                str = str.mid(0,100) + "...";
+
+                auto content = itemcontainer->addWidget(cpp14::make_unique<WText>(str.toStdString().c_str()));
+
+                content->setTextFormat(TextFormat::Plain);
+                content->addStyleClass(Bootstrap::Grid::Large::col_lg_9 + "BodyNewsListItem");
                 itemWidget->clicked().connect([=](){
                     ClickedNewsItem_.emit(item.oid);
                 });
